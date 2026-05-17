@@ -52,7 +52,7 @@ export default function WhyChooseUs() {
         {/* Section Header */}
         <div className="flex flex-col items-center gap-2 mb-20">
           <h2 className="text-2xl md:text-3xl font-bold tracking-wider font-serif text-white uppercase text-center leading-tight">
-            TẠI SAO CHỌN KITA HOME
+            TẠI SAO CHỌN GAMMA HOME
           </h2>
           <img
             src="/kita/Title.png"
