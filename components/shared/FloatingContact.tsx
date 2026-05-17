@@ -2,12 +2,17 @@
 
 import { Phone, ArrowUp } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import { getSystemSetting, SystemSetting } from '@/utils/api';
 
 export default function FloatingContact() {
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [setting, setSetting] = useState<SystemSetting | null>(null);
 
   useEffect(() => {
+    // Fetch settings on client-side mount
+    getSystemSetting().then(setSetting);
+
     const handleScroll = () => {
       if (window.scrollY > 300) {
         setShowScrollTop(true);
@@ -39,6 +44,11 @@ export default function FloatingContact() {
     window.dispatchEvent(new CustomEvent('open-consultation-modal'));
   };
 
+  const hotlineRaw = setting ? setting.hotline.replace(/\./g, '') : '0827972555';
+  const hotlineLabel = setting ? setting.hotline : '0827.972.555';
+  const zaloHref = setting?.zaloUrl || 'https://zalo.me/0827972555';
+  const messengerHref = setting?.messengerUrl || 'https://www.messenger.com/t/congtykita/';
+
   return (
     <>
       {/* KHU VỰC BÊN TRÁI: Các nút liên hệ & Nhận tư vấn */}
@@ -46,12 +56,12 @@ export default function FloatingContact() {
         
         {/* Nút Gọi điện */}
         <a
-          href="tel:0827972555"
+          href={`tel:${hotlineRaw}`}
           className="group relative flex items-center justify-center w-12 h-12 rounded-full bg-[#bd8b1b] border-2 border-white text-white shadow-lg transition-all duration-300 active:scale-95 hover:scale-105 z-10 animate-float-shake"
           aria-label="Call Hotline"
         >
           <span className="absolute left-14 bg-zinc-900/90 text-white text-xs font-semibold px-3 py-1.5 rounded-lg opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-300 whitespace-nowrap shadow-md z-30">
-            Hotline: 0827.972.555
+            Hotline: {hotlineLabel}
           </span>
           {/* Pulsing rings */}
           <span className="absolute inset-0 rounded-full bg-[#bd8b1b]/35 animate-float-pulse-1 pointer-events-none -z-10"></span>
@@ -61,7 +71,7 @@ export default function FloatingContact() {
 
         {/* Nút Zalo Chat */}
         <a
-          href="https://zalo.me/0827972555"
+          href={zaloHref}
           target="_blank"
           rel="noopener noreferrer"
           className="group relative flex items-center justify-center w-12 h-12 rounded-full transition-all duration-300 active:scale-95 shadow-[0_0_15px_rgba(189,139,27,0.25)] hover:scale-105 z-10 bg-[#bd8b1b] border-2 border-white animate-float-shake"
@@ -74,7 +84,7 @@ export default function FloatingContact() {
           <span className="absolute inset-0 rounded-full bg-[#bd8b1b]/35 animate-float-pulse-1 pointer-events-none -z-10"></span>
           <span className="absolute inset-0 rounded-full bg-[#bd8b1b]/20 animate-float-pulse-2 pointer-events-none -z-10"></span>
           
-          {/* Huy hiệu Zalo nguyên bản (Trắng & Xanh) nằm lồng bên trong */}
+          {/* Huy hệ Zalo nguyên bản (Trắng & Xanh) nằm lồng bên trong */}
           <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center relative z-10 p-0.5 border border-[#0068ff]/10">
             <svg
               id="svg_zalo_icon"
@@ -91,7 +101,7 @@ export default function FloatingContact() {
 
         {/* Nút Messenger Chat */}
         <a
-          href="https://www.messenger.com/t/congtykita/"
+          href={messengerHref}
           target="_blank"
           rel="noopener noreferrer"
           className="group relative flex items-center justify-center w-12 h-12 rounded-full transition-all duration-300 active:scale-95 shadow-[0_0_15px_rgba(189,139,27,0.25)] hover:scale-105 z-10 bg-[#bd8b1b] border-2 border-white animate-float-shake"

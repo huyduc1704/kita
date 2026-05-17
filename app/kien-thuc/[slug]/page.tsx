@@ -2,12 +2,18 @@
 
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
+import { useState, useEffect } from 'react';
+import { getNews, getPostBySlug } from '../../../utils/api';
+import { NewsItem } from '../../../data/mockData';
 import CategoryPage, { CategoryItem } from '../../../components/shared/CategoryPage';
 import { Calendar, User, Eye, ArrowLeft } from 'lucide-react';
 
 export default function KnowledgeDetailPage() {
   const params = useParams();
   const slug = params.slug as string;
+  const [articles, setArticles] = useState<NewsItem[]>([]);
+  const [currentArticle, setCurrentArticle] = useState<NewsItem | null>(null);
+  const [loading, setLoading] = useState(true);
 
   // 1. Define sub-categories list under Knowledge
   const subCategoryMappings: Record<string, { title: string; desc: string }> = {
@@ -35,65 +41,106 @@ export default function KnowledgeDetailPage() {
 
   const isSubCategory = slug in subCategoryMappings;
 
-  // Mock knowledge pool for subcategory display
-  const mockKnowledgePool: CategoryItem[] = [
+  useEffect(() => {
+    getNews().then(items => {
+      // Filter for knowledge/ feng-shui / handbook categories
+      const filtered = items.filter(item => ['cam-nang', 'phong-thuy'].includes(item.category));
+      setArticles(filtered);
+    });
+
+    if (!isSubCategory) {
+      getPostBySlug(slug).then((res) => {
+        if (res && res.newsItem) {
+          setCurrentArticle(res.newsItem);
+        }
+        setLoading(false);
+      });
+    } else {
+      setLoading(false);
+    }
+  }, [slug, isSubCategory]);
+
+  const defaultMockItems: NewsItem[] = [
     {
       id: 'kt1',
       title: 'KINH NGHIỆM LỰA CHỌN VẬT LIỆU XÂY THÔ ĐẠT CHUẨN CHẤT LƯỢNG',
       image: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=800&q=80',
       excerpt: 'Hướng dẫn chi tiết cách nhận biết cát sạch xây tô, thép xây dựng chính hãng Hòa Phát, xi măng chất lượng cao giúp hệ khung bê tông cốt thép của ngôi nhà bền bỉ trăm năm.',
-      views: 95,
       slug: 'kinh-nghiem-lua-chon-vat-lieu-xay-tho',
+      category: 'cam-nang',
+      date: '18/05/2026'
     },
     {
       id: 'kt2',
       title: 'PHONG THỦY XÂY DỰNG NHÀ Ở: NHỮNG NGUYÊN TẮC VÀNG CẦN BIẾT',
       image: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&q=80',
       excerpt: 'Tìm hiểu phong thủy phòng khách, phòng thờ, hướng bếp và cách bố trí cửa chính - cửa sổ chuẩn khí động học giúp đón nhận trọn vẹn luồng vượng khí, tài lộc dồi dào.',
-      views: 142,
       slug: 'phong-thuy-xay-dung-nha-o-nguyen-tac-vang',
+      category: 'phong-thuy',
+      date: '18/05/2026'
     },
     {
       id: 'kt3',
       title: 'QUY TRÌNH GIÁM SÁT THI CÔNG ÉP CỌC BÊ TÔNG MÓNG NHÀ PHỐ',
       image: 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=800&q=80',
       excerpt: 'Móng nhà là nền tảng cốt lõi của công trình. Khám phá quy trình giám sát lực ép cọc đầu cọc bê tông cốt thép, khoảng cách cọc và các tiêu chí nghiệm thu phần móng chuẩn kỹ thuật.',
-      views: 68,
       slug: 'quy-trinh-giam-sat-thi-cong-ep-coc-mong',
+      category: 'cam-nang',
+      date: '18/05/2026'
     },
     {
       id: 'kt4',
       title: 'HƯỚNG DẪN DỰ TOÁN CHI PHÍ XÂY NHÀ TRỌN GÓI KHÔNG PHÁT SINH',
       image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80',
       excerpt: 'Cách tính diện tích xây dựng theo hệ số mái, móng, ban công và lập bảng dự toán vật tư hoàn thiện chi tiết. Các mẹo thương thảo hợp đồng giúp kiểm soát chặt chẽ ngân sách.',
-      views: 110,
       slug: 'huong-dan-du-toan-chi-chi-xay-nha',
+      category: 'cam-nang',
+      date: '18/05/2026'
     },
   ];
+
+  if (loading) {
+    return <div className="text-center py-20 text-zinc-500">Đang tải kiến thức xây dựng...</div>;
+  }
 
   if (isSubCategory) {
     const subCat = subCategoryMappings[slug];
     
-    // Filter mock data representing that category dynamically (e.g. show relevant articles)
+    // Filter articles representing that category dynamically (e.g. show relevant articles)
+    const activeArticles = articles.length > 0 ? articles : defaultMockItems;
     const filteredItems = slug === 'kien-thuc-phong-thuy'
-      ? mockKnowledgePool.filter((p) => p.slug.includes('phong-thuy'))
+      ? activeArticles.filter((p) => p.slug.includes('phong-thuy') || p.category === 'phong-thuy')
       : slug === 'du-toan-chi-phi'
-      ? mockKnowledgePool.filter((p) => p.slug.includes('du-toan'))
-      : mockKnowledgePool;
+      ? activeArticles.filter((p) => p.slug.includes('du-toan') || p.slug.includes('chi-phi'))
+      : activeArticles;
 
     return (
       <CategoryPage
         title={subCat.title}
         description={subCat.desc}
-        items={filteredItems}
+        items={filteredItems.map((art, idx) => ({
+          id: art.id,
+          title: art.title.toUpperCase(),
+          image: art.image,
+          excerpt: art.excerpt,
+          views: 90 + idx * 5,
+          slug: art.slug
+        }))}
         basePath="/kien-thuc"
       />
     );
   }
 
   // 2. Otherwise, treat as dynamic Article Detail page
-  const article = mockKnowledgePool.find((item) => item.slug === slug) || mockKnowledgePool[0];
-  const relatedArticles = mockKnowledgePool.filter((item) => item.slug !== slug).slice(0, 3);
+  const activeList = articles.length > 0 ? articles : defaultMockItems;
+  const article = currentArticle || activeList.find((item) => item.slug === slug) || activeList[0] || {
+    title: 'Đang cập nhật bài viết...',
+    views: 45,
+    image: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=800&q=80',
+    excerpt: 'Đang cập nhật bài viết...',
+    content: ''
+  };
+  const relatedArticles = activeList.filter((item) => item.slug !== slug).slice(0, 3);
 
   return (
     <article className="py-12 bg-white min-h-screen font-sans">
@@ -128,7 +175,7 @@ export default function KnowledgeDetailPage() {
             </div>
             <div className="flex items-center gap-1.5">
               <Eye size={14} className="text-zinc-400" />
-              <span>{article.views} lượt xem</span>
+              <span>{(article as any).views || 142} lượt xem</span>
             </div>
           </div>
         </div>

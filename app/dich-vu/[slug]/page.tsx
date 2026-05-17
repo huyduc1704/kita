@@ -1,12 +1,19 @@
 'use client';
 
 import { useParams } from 'next/navigation';
-import { MOCK_PROJECTS } from '../../../data/mockData';
+import { useState, useEffect } from 'react';
+import { getProjects } from '../../../utils/api';
+import { Project } from '../../../data/mockData';
 import CategoryPage, { CategoryItem } from '../../../components/shared/CategoryPage';
 
 export default function ServiceDetailPage() {
   const params = useParams();
   const slug = params.slug as string;
+  const [projects, setProjects] = useState<Project[]>([]);
+
+  useEffect(() => {
+    getProjects().then(setProjects);
+  }, []);
 
   const serviceMappings: Record<string, { title: string; desc: string; filter: (p: any) => boolean }> = {
     'xay-nha-tron-goi': {
@@ -37,7 +44,7 @@ export default function ServiceDetailPage() {
     filter: () => true,
   };
 
-  const filteredProjects = MOCK_PROJECTS.filter(service.filter);
+  const filteredProjects = projects.filter(service.filter);
 
   const items: CategoryItem[] = filteredProjects.map((proj, index) => ({
     id: proj.id,

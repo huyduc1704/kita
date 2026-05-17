@@ -1,16 +1,24 @@
 'use client';
 
 import { MapPin, Target, Shield, Building, Award } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { getSystemSetting, SystemSetting } from '@/utils/api';
 
 export default function AboutPage() {
+  const [setting, setSetting] = useState<SystemSetting | null>(null);
+
+  useEffect(() => {
+    getSystemSetting().then(setSetting);
+  }, []);
+
   const offices = [
     {
       name: 'CN HÀ NỘI',
-      address: 'G29-30, Khu đấu giá Ngô Thì Nhậm, Hà Cầu, Hà Đông, Hà Nội',
+      address: setting?.addressNorth || 'G29-30, Khu đấu giá Ngô Thì Nhậm, Hà Cầu, Hà Đông, Hà Nội',
     },
     {
       name: 'CN TP. HCM',
-      address: 'Đường T2-41, Khu Biệt Thự Manhattan, Vinhomes Grand Park, P. Long Bình, TP. Thủ Đức, Hồ Chí Minh',
+      address: setting?.addressSouth || 'Đường T2-41, Khu Biệt Thự Manhattan, Vinhomes Grand Park, P. Long Bình, TP. Thủ Đức, Hồ Chí Minh',
     },
     {
       name: 'CN PHÚ THỌ',
@@ -40,7 +48,7 @@ export default function AboutPage() {
           </h1>
           <div className="w-16 h-1 bg-[#f39221] mx-auto mb-4" />
           <p className="text-zinc-300 text-xs md:text-sm font-light uppercase tracking-wider italic">
-            “Tận tâm trong từng viên gạch – Vững trọn niềm tin trong từng mái nhà”
+            “{setting?.slogan || 'Tận tâm trong từng viên gạch – Vững trọn niềm tin trong từng mái nhà'}”
           </p>
         </div>
       </div>

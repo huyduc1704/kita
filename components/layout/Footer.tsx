@@ -1,12 +1,28 @@
 'use client';
 
 import Link from 'next/link';
+import { useState, useEffect } from 'react';
+import { getSystemSetting, SystemSetting } from '@/utils/api';
 
 export default function Footer() {
+  const [setting, setSetting] = useState<SystemSetting | null>(null);
+
+  useEffect(() => {
+    getSystemSetting().then(setSetting);
+  }, []);
+
   const openConsultation = (e: React.MouseEvent) => {
     e.preventDefault();
     window.dispatchEvent(new CustomEvent('open-consultation-modal'));
   };
+
+  const addressNorth = setting?.addressNorth || 'G29-30 - Khu đấu giá Ngô Thì Nhậm - Hà Cầu - Hà Đông - TP Hà Nội';
+  const addressSouth = setting?.addressSouth || 'Đường T2-41 Khu Biệt Thự Manhattan - Vinhomes Grand Park - P.Long Bình - TP.Thủ Đức - Hồ Chí Minh';
+  const hotline = setting?.hotline || '0827.972.555';
+  const email = setting?.email || 'Nhadepkita@gmail.com';
+  const facebookUrl = setting?.facebookUrl || 'https://www.facebook.com/congtykita/';
+  const tiktokUrl = setting?.tiktokUrl || 'https://www.tiktok.com/@nhadepkita1';
+  const youtubeUrl = setting?.youtubeUrl || 'https://www.youtube.com/@nhadepkita';
 
   return (
     <footer
@@ -25,7 +41,7 @@ export default function Footer() {
             {/* Logo */}
             <Link href="/" className="flex items-center">
               <img
-                src="/kita/Kita-Home-FT.png"
+                src="/kita/gamma-home.png"
                 alt="Kita Home Logo"
                 className="h-16 w-auto object-contain"
               />
@@ -55,16 +71,16 @@ export default function Footer() {
             {/* Contact Information List */}
             <div className="flex flex-col gap-3.5 text-xs md:text-sm font-light font-sans leading-relaxed">
               <p>
-                <span className="text-[#f39221] font-bold">Miền Bắc:</span> G29-30 - Khu đấu giá Ngô Thì Nhậm - Hà Cầu - Hà Đông - TP Hà Nội
+                <span className="text-[#f39221] font-bold">Miền Bắc:</span> {addressNorth}
               </p>
               <p>
-                <span className="text-[#f39221] font-bold">Miền Nam:</span> Đường T2-41 Khu Biệt Thự Manhattan - Vinhomes Grand Park - P.Long Bình - TP.Thủ Đức - Hồ Chí Minh
+                <span className="text-[#f39221] font-bold">Miền Nam:</span> {addressSouth}
               </p>
               <p>
-                <span className="text-[#f39221] font-bold">Hotline:</span> 0827.972.555
+                <span className="text-[#f39221] font-bold">Hotline:</span> {hotline}
               </p>
               <p>
-                <span className="text-[#f39221] font-bold">Email:</span> Nhadepkita@gmail.com
+                <span className="text-[#f39221] font-bold">Email:</span> {email}
               </p>
             </div>
 
@@ -72,7 +88,7 @@ export default function Footer() {
             <div className="flex gap-3 mt-1">
               {/* Facebook Button (Blue) */}
               <a
-                href="https://www.facebook.com/congtykita/?ref=embed_page#"
+                href={facebookUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-8 h-8 rounded-full bg-[#3b5998] flex items-center justify-center text-white hover:opacity-90 transition-all shadow-sm"
@@ -84,7 +100,7 @@ export default function Footer() {
               </a>
               {/* TikTok Button (Image Icon) */}
               <a
-                href="https://www.tiktok.com/@nhadepkita1"
+                href={tiktokUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-8 h-8 rounded-full overflow-hidden flex items-center justify-center hover:opacity-90 hover:scale-105 active:scale-95 transition-all shadow-sm"
@@ -98,7 +114,7 @@ export default function Footer() {
               </a>
               {/* YouTube Button (Red) */}
               <a
-                href="https://www.youtube.com/@nhadepkita"
+                href={youtubeUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-8 h-8 rounded-full bg-[#ff0000] flex items-center justify-center text-white hover:opacity-90 transition-all shadow-sm"

@@ -1,13 +1,24 @@
 'use client';
 
+import { useState, useEffect } from 'react';
+import { getNews } from '../../utils/api';
+import { NewsItem } from '../../data/mockData';
 import CategoryPage, { CategoryItem } from '../../components/shared/CategoryPage';
 
 export default function KnowledgePage() {
   const title = 'KIẾN THỨC XÂY DỰNG';
   const description = 'Chuyên mục chia sẻ cẩm nang xây nhà, kinh nghiệm chọn vật liệu, phong thủy nhà ở khoa học và các hướng dẫn kỹ thuật thiết thực giúp chủ đầu tư trang bị đầy đủ kiến thức trước khi bước vào hành trình kiến tạo tổ ấm mơ ước.';
+  const [articles, setArticles] = useState<NewsItem[]>([]);
 
-  // Knowledge articles list mapped as CategoryItem
-  const items: CategoryItem[] = [
+  useEffect(() => {
+    getNews().then(items => {
+      // Filter for knowledge/ feng-shui / handbook categories
+      const filtered = items.filter(item => ['cam-nang', 'phong-thuy'].includes(item.category));
+      setArticles(filtered);
+    });
+  }, []);
+
+  const defaultMockItems: CategoryItem[] = [
     {
       id: 'kt1',
       title: 'KINH NGHIỆM LỰA CHỌN VẬT LIỆU XÂY THÔ ĐẠT CHUẨN CHẤT LƯỢNG',
@@ -41,6 +52,17 @@ export default function KnowledgePage() {
       slug: 'huong-dan-du-toan-chi-chi-xay-nha'
     }
   ];
+
+  const items: CategoryItem[] = articles.length > 0 
+    ? articles.map((art, index) => ({
+        id: art.id,
+        title: art.title.toUpperCase(),
+        image: art.image,
+        excerpt: art.excerpt,
+        views: 85 + index * 10,
+        slug: art.slug
+      }))
+    : defaultMockItems;
 
   return (
     <CategoryPage

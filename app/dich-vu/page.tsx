@@ -1,14 +1,21 @@
 'use client';
 
-import { MOCK_SERVICES } from '../../data/mockData';
+import { useState, useEffect } from 'react';
+import { getServices } from '../../utils/api';
+import { Service } from '../../data/mockData';
 import CategoryPage, { CategoryItem } from '../../components/shared/CategoryPage';
 
 export default function ServicesPage() {
   const title = 'DỊCH VỤ CỦA KITA HOME';
   const description = 'KITA HOME cung cấp các giải pháp toàn diện về tư vấn thiết kế kiến trúc, thiết kế nội thất, thi công phần thô và xây nhà trọn gói chìa khóa trao tay. Với triết lý "Tận tâm trong từng viên gạch", chúng tôi cam kết mang lại sản phẩm đạt chất lượng cao, thẩm mỹ vượt trội, giá thành hợp lý và chính sách bảo hành bảo trì hoàn hảo.';
+  const [services, setServices] = useState<Service[]>([]);
 
-  // Map mock services to CategoryItem interface
-  const items: CategoryItem[] = MOCK_SERVICES.map((srv, index) => ({
+  useEffect(() => {
+    getServices().then(setServices);
+  }, []);
+
+  // Map services to CategoryItem interface
+  const items: CategoryItem[] = services.map((srv, index) => ({
     id: srv.id,
     title: srv.title.toUpperCase(),
     image: index === 0 

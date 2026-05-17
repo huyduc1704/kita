@@ -2,20 +2,44 @@
 
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
-import { MOCK_NEWS } from '../../../data/mockData';
+import { useState, useEffect } from 'react';
+import { getNews, getPostBySlug } from '../../../utils/api';
+import { NewsItem } from '../../../data/mockData';
 import CategoryPage, { CategoryItem } from '../../../components/shared/CategoryPage';
 import { Calendar, User, Eye, ArrowLeft } from 'lucide-react';
 
 export default function NewsDetailPage() {
   const params = useParams();
   const slug = params.slug as string;
+  const [newsList, setNewsList] = useState<NewsItem[]>([]);
+  const [currentArticle, setCurrentArticle] = useState<NewsItem | null>(null);
+  const [loading, setLoading] = useState(true);
 
   // 1. Check if the slug is a sub-category list
   const isSubCategory = slug === 'tin-tuc-noi-bo' || slug === 'tin-tuc-du-an';
 
+  useEffect(() => {
+    getNews().then(setNewsList);
+    
+    if (!isSubCategory) {
+      getPostBySlug(slug).then((res) => {
+        if (res && res.newsItem) {
+          setCurrentArticle(res.newsItem);
+        }
+        setLoading(false);
+      });
+    } else {
+      setLoading(false);
+    }
+  }, [slug, isSubCategory]);
+
+  if (loading) {
+    return <div className="text-center py-20 text-zinc-500">Đang tải bài viết...</div>;
+  }
+
   if (isSubCategory) {
     const targetCat = slug === 'tin-tuc-noi-bo' ? 'tin-noi-bo' : 'tin-du-an';
-    const filteredNews = MOCK_NEWS.filter((news) => news.category === targetCat);
+    const filteredNews = newsList.filter((news) => news.category === targetCat);
     
     const title = slug === 'tin-tuc-noi-bo' ? 'TIN TỨC NỘI BỘ' : 'TIN TỨC DỰ ÁN THỰC TẾ';
     const desc = slug === 'tin-tuc-noi-bo'
@@ -42,8 +66,15 @@ export default function NewsDetailPage() {
   }
 
   // 2. Otherwise, treat as an Article Reader Page
-  const article = MOCK_NEWS.find((news) => news.slug === slug) || MOCK_NEWS[0];
-  const relatedArticles = MOCK_NEWS.filter((news) => news.slug !== slug).slice(0, 3);
+  const article = currentArticle || newsList.find((news) => news.slug === slug) || newsList[0] || {
+    title: 'Đang cập nhật bài viết...',
+    category: 'cam-nang',
+    date: '15/05/2026',
+    image: 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=800&q=80',
+    excerpt: 'Bài viết đang được cập nhật...',
+    content: ''
+  };
+  const relatedArticles = newsList.filter((news) => news.slug !== slug).slice(0, 3);
 
   return (
     <article className="py-12 bg-white min-h-screen font-sans">

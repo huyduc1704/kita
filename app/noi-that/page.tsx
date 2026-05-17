@@ -1,16 +1,22 @@
 'use client';
 
-import { Suspense } from 'react';
+import { Suspense, useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { MOCK_PROJECTS } from '../../data/mockData';
+import { getProjects } from '../../utils/api';
+import { Project } from '../../data/mockData';
 import CategoryPage, { CategoryItem } from '../../components/shared/CategoryPage';
 
 function InteriorContent() {
   const searchParams = useSearchParams();
   const cat = searchParams.get('cat');
+  const [projects, setProjects] = useState<Project[]>([]);
+
+  useEffect(() => {
+    getProjects().then(setProjects);
+  }, []);
 
   // Filter all interior projects
-  const allInterior = MOCK_PROJECTS.filter((proj) => proj.category === 'noi-that');
+  const allInterior = projects.filter((proj) => proj.category === 'noi-that');
 
   // Dynamically filter by sub-category query parameter (?cat=nha-pho, ?cat=biet-thu, etc.)
   const filteredInterior = cat

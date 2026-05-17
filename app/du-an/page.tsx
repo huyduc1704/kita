@@ -1,18 +1,24 @@
 'use client';
 
-import { Suspense } from 'react';
+import { Suspense, useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { MOCK_PROJECTS } from '../../data/mockData';
+import { getProjects } from '../../utils/api';
+import { Project } from '../../data/mockData';
 import CategoryPage, { CategoryItem } from '../../components/shared/CategoryPage';
 
 function ProjectsContent() {
   const searchParams = useSearchParams();
   const cat = searchParams.get('cat');
+  const [projects, setProjects] = useState<Project[]>([]);
+
+  useEffect(() => {
+    getProjects().then(setProjects);
+  }, []);
 
   // Filter projects by category query parameter if active
   const filteredProjects = cat
-    ? MOCK_PROJECTS.filter((proj) => proj.category === cat)
-    : MOCK_PROJECTS;
+    ? projects.filter((proj) => proj.category === cat)
+    : projects;
 
   const categoryTitles: Record<string, string> = {
     'nha-pho': 'DỰ ÁN NHÀ PHỐ',

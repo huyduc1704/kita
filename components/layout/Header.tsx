@@ -160,9 +160,9 @@ export default function Header() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
             <img
-              src="/kita/kita-logo.png"
-              alt="Kita Home Logo"
-              className="h-12 w-auto object-contain"
+              src="/kita/gamma-home.jpg"
+              alt="Gamma Home Logo"
+              className="h-15 w-auto object-cover"
             />
           </Link>
 
@@ -213,8 +213,8 @@ export default function Header() {
 
           {/* Search Icon flush to the right */}
           <div className="hidden lg:block">
-            <button 
-              aria-label="Search" 
+            <button
+              aria-label="Search"
               className="p-2 text-zinc-800 hover:text-[#f39221] transition-colors cursor-pointer"
             >
               <Search size={20} className="stroke-[2.5]" />
