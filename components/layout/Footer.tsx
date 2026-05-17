@@ -82,17 +82,19 @@ export default function Footer() {
                   <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c4.56-.93 8-4.96 8-9.75z" />
                 </svg>
               </a>
-              {/* TikTok Button (Black) */}
+              {/* TikTok Button (Image Icon) */}
               <a
                 href="https://www.tiktok.com/@nhadepkita1"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-8 h-8 rounded-full bg-black flex items-center justify-center text-white hover:opacity-90 transition-all shadow-sm"
+                className="w-8 h-8 rounded-full overflow-hidden flex items-center justify-center hover:opacity-90 hover:scale-105 active:scale-95 transition-all shadow-sm"
                 aria-label="TikTok Kita Home"
               >
-                <svg className="w-4 h-4 fill-white" viewBox="0 0 24 24">
-                  <path d="M12.525.02c1.31 0 2.57.44 3.59 1.25.1.08.15.2.14.33v3.1c0 .12-.07.24-.18.29-.86.37-1.8.44-2.7.2-.12-.03-.21-.13-.21-.26V1.3c0-.7-.57-1.28-1.28-1.28H9.37c-.7 0-1.28.58-1.28 1.28v14.15c0 2.27-1.85 4.12-4.12 4.12-2.28 0-4.12-1.85-4.12-4.12 0-2.28 1.84-4.12 4.12-4.12.35 0 .7.05 1.03.14.12.03.2.14.2.27v3.08c0 .11-.07.2-.17.23-.33.1-.68.1-.99-.02-.62-.25-1.01-.84-1.01-1.5 0-.82.68-1.5 1.5-1.5.83 0 1.5.68 1.5 1.5v12.28c0 .7.58 1.28 1.28 1.28h2.5c.7 0 1.28-.58 1.28-1.28V9.32a6.47 6.47 0 0 0 4.15 1.48c.13 0 .24-.1.24-.23V7.5c0-.12-.08-.22-.19-.24a3.97 3.97 0 0 1-3.25-3.26c-.02-.1-.12-.18-.24-.18h-2.52c-.13 0-.24.1-.24.23V11.2a1.5 1.5 0 0 1-1.5 1.5c-.83 0-1.5-.67-1.5-1.5V1.28c0-.7.58-1.28 1.28-1.28h3.14z" />
-                </svg>
+                <img
+                  src="/kita/tiktok-icon.png"
+                  alt="TikTok"
+                  className="w-full h-full object-cover"
+                />
               </a>
               {/* YouTube Button (Red) */}
               <a
