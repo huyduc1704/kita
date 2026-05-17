@@ -41,7 +41,7 @@ export default function Footer() {
             {/* Logo */}
             <Link href="/" className="flex items-center">
               <img
-                src="/kita/gamma-home.png"
+                src="/kita/gamma-home.jpg"
                 alt="Kita Home Logo"
                 className="h-16 w-auto object-contain"
               />
