@@ -231,9 +231,9 @@ export default function Header() {
           </button>
         </div>
 
-        {/* Mobile Menu Panel (Standard React Conditional Render) */}
+        {/* Mobile Menu Panel (Absolute Overlay) */}
         {isOpen && (
-          <div className="lg:hidden w-full bg-white border-t border-zinc-100 shadow-lg overflow-hidden transition-all duration-300">
+          <div className="absolute left-0 top-full w-full lg:hidden bg-white border-t border-b border-zinc-100 shadow-2xl transition-all duration-300 z-50 max-h-[calc(100vh-70px)] overflow-y-auto">
             <div className="container-kita py-4 flex flex-col gap-2">
               {NAV_ITEMS.map((item) => (
                 <MobileNavItem key={item.label} item={item} />
