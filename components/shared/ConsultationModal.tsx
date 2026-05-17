@@ -83,7 +83,7 @@ export default function ConsultationModal() {
             </div>
 
             {/* Input 1: Nhu Cầu Select */}
-            <div className="flex bg-white rounded-lg overflow-hidden border border-zinc-200 shadow-sm items-center h-11">
+            <div className="flex bg-white rounded-lg overflow-hidden border-0 shadow-sm items-center h-11">
               <div className="w-12 flex items-center justify-center border-r border-zinc-200 text-zinc-650 shrink-0">
                 <Home size={18} />
               </div>
@@ -102,7 +102,7 @@ export default function ConsultationModal() {
             </div>
 
             {/* Input 2: Họ và Tên */}
-            <div className="flex bg-white rounded-lg overflow-hidden border border-zinc-200 shadow-sm items-center h-11">
+            <div className="flex bg-white rounded-lg overflow-hidden border-0 shadow-sm items-center h-11">
               <div className="w-12 flex items-center justify-center border-r border-zinc-200 text-zinc-650 shrink-0">
                 <User size={18} />
               </div>
@@ -116,7 +116,7 @@ export default function ConsultationModal() {
             </div>
 
             {/* Input 3: Số Điện Thoại */}
-            <div className="flex bg-white rounded-lg overflow-hidden border border-zinc-200 shadow-sm items-center h-11">
+            <div className="flex bg-white rounded-lg overflow-hidden border-0 shadow-sm items-center h-11">
               <div className="w-12 flex items-center justify-center border-r border-zinc-200 text-zinc-650 shrink-0">
                 <Phone size={18} />
               </div>
@@ -131,7 +131,7 @@ export default function ConsultationModal() {
             </div>
 
             {/* Input 4: Diện tích & Số Tầng */}
-            <div className="flex bg-white rounded-lg overflow-hidden border border-zinc-200 shadow-sm items-center h-11">
+            <div className="flex bg-white rounded-lg overflow-hidden border-0 shadow-sm items-center h-11">
               <div className="w-12 flex items-center justify-center border-r border-zinc-200 text-zinc-650 shrink-0">
                 <Layers size={18} />
               </div>
@@ -145,7 +145,7 @@ export default function ConsultationModal() {
             </div>
 
             {/* Input 5: Tỉnh Thành */}
-            <div className="flex bg-white rounded-lg overflow-hidden border border-zinc-200 shadow-sm items-center h-11">
+            <div className="flex bg-white rounded-lg overflow-hidden border-0 shadow-sm items-center h-11">
               <div className="w-12 flex items-center justify-center border-r border-zinc-200 text-zinc-650 shrink-0">
                 <MapPin size={18} />
               </div>
@@ -159,7 +159,7 @@ export default function ConsultationModal() {
             </div>
 
             {/* Input 6: Yêu cầu chi tiết */}
-            <div className="flex bg-white rounded-lg overflow-hidden border border-zinc-200 shadow-sm items-center h-11">
+            <div className="flex bg-white rounded-lg overflow-hidden border-0 shadow-sm items-center h-11">
               <div className="w-12 flex items-center justify-center border-r border-zinc-200 text-zinc-650 shrink-0">
                 <Mail size={18} />
               </div>

@@ -60,7 +60,7 @@ export default function ExperienceSection() {
           {EXPERIENCE_ITEMS.map((item) => (
             <div
               key={item.id}
-              className="group bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl border border-zinc-150 flex flex-col h-full transition-all duration-300 hover:-translate-y-1"
+              className="group bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl flex flex-col h-full transition-all duration-300 hover:-translate-y-1"
             >
               {/* Thumbnail Container */}
               <div className="relative h-[220px] overflow-hidden">

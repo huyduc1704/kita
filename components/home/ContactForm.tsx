@@ -75,7 +75,7 @@ export default function ContactForm() {
                   <select
                     value={need}
                     onChange={(e) => setNeed(e.target.value)}
-                    className="pl-14 w-full bg-white border border-zinc-250 rounded px-4 py-[10px] text-zinc-700 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all text-sm appearance-none cursor-pointer"
+                    className="pl-14 w-full bg-zinc-50 border-0 rounded px-4 py-[10px] text-zinc-700 focus:outline-none focus:bg-white focus:ring-1 focus:ring-primary transition-all text-sm appearance-none cursor-pointer"
                   >
                     <option value="Xây nhà trọn gói">Xây nhà trọn gói</option>
                     <option value="Thiết kế kiến trúc">Thiết kế kiến trúc</option>
@@ -101,7 +101,7 @@ export default function ContactForm() {
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="Họ và Tên"
-                    className="pl-14 w-full bg-white border border-zinc-250 rounded px-4 py-[10px] text-zinc-800 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all text-sm placeholder:text-zinc-400"
+                    className="pl-14 w-full bg-zinc-50 border-0 rounded px-4 py-[10px] text-zinc-800 focus:outline-none focus:bg-white focus:ring-1 focus:ring-primary transition-all text-sm placeholder:text-zinc-400"
                   />
                 </div>
 
@@ -111,12 +111,12 @@ export default function ContactForm() {
                     <Phone size={18} />
                   </div>
                   <input
-                    type="tel"
+                    type="text"
                     required
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     placeholder="Số điện thoại (*)"
-                    className="pl-14 w-full bg-white border border-zinc-250 rounded px-4 py-[10px] text-zinc-800 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all text-sm placeholder:text-zinc-400"
+                    className="pl-14 w-full bg-zinc-50 border-0 rounded px-4 py-[10px] text-zinc-800 focus:outline-none focus:bg-white focus:ring-1 focus:ring-primary transition-all text-sm placeholder:text-zinc-400"
                   />
                 </div>
 
@@ -130,7 +130,7 @@ export default function ContactForm() {
                     value={areaAndFloors}
                     onChange={(e) => setAreaAndFloors(e.target.value)}
                     placeholder="Diện tích đất và Số tầng muốn xây"
-                    className="pl-14 w-full bg-white border border-zinc-250 rounded px-4 py-[10px] text-zinc-800 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all text-sm placeholder:text-zinc-400"
+                    className="pl-14 w-full bg-zinc-50 border-0 rounded px-4 py-[10px] text-zinc-800 focus:outline-none focus:bg-white focus:ring-1 focus:ring-primary transition-all text-sm placeholder:text-zinc-400"
                   />
                 </div>
 
@@ -144,7 +144,7 @@ export default function ContactForm() {
                     value={province}
                     onChange={(e) => setProvince(e.target.value)}
                     placeholder="Tỉnh thành"
-                    className="pl-14 w-full bg-white border border-zinc-250 rounded px-4 py-[10px] text-zinc-800 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all text-sm placeholder:text-zinc-400"
+                    className="pl-14 w-full bg-zinc-50 border-0 rounded px-4 py-[10px] text-zinc-800 focus:outline-none focus:bg-white focus:ring-1 focus:ring-primary transition-all text-sm placeholder:text-zinc-400"
                   />
                 </div>
 
@@ -158,7 +158,7 @@ export default function ContactForm() {
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                     placeholder="Yêu cầu chi tiết (Nếu có)"
-                    className="pl-14 w-full bg-white border border-zinc-250 rounded px-4 py-[10px] text-zinc-800 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all text-sm placeholder:text-zinc-400 resize-none"
+                    className="pl-14 w-full bg-zinc-50 border-0 rounded px-4 py-[10px] text-zinc-800 focus:outline-none focus:bg-white focus:ring-1 focus:ring-primary transition-all text-sm placeholder:text-zinc-400 resize-none"
                   />
                 </div>
 
