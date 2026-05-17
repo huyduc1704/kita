@@ -19,8 +19,8 @@ export default function Footer() {
   const addressNorth = setting?.addressNorth || 'G29-30 - Khu đấu giá Ngô Thì Nhậm - Hà Cầu - Hà Đông - TP Hà Nội';
   const addressSouth = setting?.addressSouth || 'Đường T2-41 Khu Biệt Thự Manhattan - Vinhomes Grand Park - P.Long Bình - TP.Thủ Đức - Hồ Chí Minh';
   const hotline = setting?.hotline || '0827.972.555';
-  const email = setting?.email || 'Nhadepkita@gmail.com';
-  const facebookUrl = setting?.facebookUrl || 'https://www.facebook.com/congtykita/';
+  const email = setting?.email || 'Nhadepgamma@gmail.com';
+  const facebookUrl = setting?.facebookUrl || setting?.facebookPage || 'https://www.facebook.com/profile.php?id=100076260787549';
   const tiktokUrl = setting?.tiktokUrl || 'https://www.tiktok.com/@nhadepkita1';
   const youtubeUrl = setting?.youtubeUrl || 'https://www.youtube.com/@nhadepkita';
 
@@ -49,7 +49,7 @@ export default function Footer() {
 
             {/* Paragraph Text */}
             <p className="text-xs md:text-sm text-zinc-300 leading-relaxed font-light font-sans text-justify">
-              <strong>KITA HOME</strong> là đơn vị thiết kế và thi công nhà trọn gói được nhiều khách tin tưởng lựa chọn, với hàng trăm công trình chất lượng đã được hoàn thiện, góp phần mang đến không gian sống chỉn chu và ấm áp cho các gia đình Việt.
+              <strong>GAMMA HOME</strong> là đơn vị thiết kế và thi công nhà trọn gói được nhiều khách tin tưởng lựa chọn, với hàng trăm công trình chất lượng đã được hoàn thiện, góp phần mang đến không gian sống chỉn chu và ấm áp cho các gia đình Việt.
             </p>
 
             {/* Request Consultation Button */}
@@ -65,7 +65,7 @@ export default function Footer() {
           <div className="flex flex-col gap-5 lg:pl-4">
             {/* Company Title */}
             <h3 className="text-white font-bold text-sm uppercase tracking-wider font-sans leading-snug">
-              CÔNG TY CỔ PHẦN KIẾN TRÚC & XÂY DỰNG KITA HOME
+              CÔNG TY CỔ PHẦN KIẾN TRÚC & XÂY DỰNG GAMMA HOME
             </h3>
 
             {/* Contact Information List */}
@@ -92,7 +92,7 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-8 h-8 rounded-full bg-[#3b5998] flex items-center justify-center text-white hover:opacity-90 transition-all shadow-sm"
-                aria-label="Facebook Kita Home"
+                aria-label="Facebook Gamma Home"
               >
                 <svg className="w-4 h-4 fill-white" viewBox="0 0 24 24">
                   <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c4.56-.93 8-4.96 8-9.75z" />
@@ -150,7 +150,7 @@ export default function Footer() {
       {/* Full-width Copyright Bar with dark background */}
       <div className="relative z-20 bg-black/90 py-4 border-t border-zinc-800 flex justify-center items-center text-[10px] md:text-xs text-zinc-400 font-light text-center px-4">
         <p className="font-sans">
-          © 2021 Bản quyền thuộc về Kita Home. Thiết kế và Phát triển bởi <a href="https://taoweb.com.vn" target="_blank" rel="noopener noreferrer" className="hover:text-white font-medium transition-colors">TaoWeb.com.vn</a>
+          © 2021 Bản quyền thuộc về Gamma Home. Thiết kế và Phát triển bởi <a href="https://vinasoftware.com.vn" target="_blank" rel="noopener noreferrer" className="hover:text-white font-medium transition-colors">Vinasoftware</a>
         </p>
       </div>
     </footer>

@@ -1,10 +1,10 @@
-import { 
-  MOCK_PROJECTS, 
-  MOCK_SERVICES, 
-  MOCK_NEWS, 
-  Project, 
-  Service, 
-  NewsItem 
+import {
+  MOCK_PROJECTS,
+  MOCK_SERVICES,
+  MOCK_NEWS,
+  Project,
+  Service,
+  NewsItem
 } from '@/data/mockData';
 
 const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_API_URL || 'http://localhost:1337';
@@ -15,19 +15,19 @@ const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_API_URL || 'http://localhost:1
 async function safeFetch<T>(url: string, fallbackData: T): Promise<T> {
   try {
     const res = await fetch(url, {
-      next: { revalidate: 60 }, // ISR: Cache 60 giây
+      cache: 'no-store', // Tắt cache để cập nhật dữ liệu mới từ Strapi lập tức khi tải lại trang
     });
-    
+
     if (!res.ok) {
       console.warn(`[Strapi API] Gọi ${url} không thành công (Status: ${res.status}). Sử dụng Mock Data.`);
       return fallbackData;
     }
-    
+
     const json = await res.json();
     if (!json || !json.data || (Array.isArray(json.data) && json.data.length === 0)) {
       return fallbackData;
     }
-    
+
     return json.data as T;
   } catch (error) {
     console.warn(`[Strapi API] Không thể kết nối tới ${url}. Sử dụng Mock Data.`);
@@ -41,19 +41,19 @@ async function safeFetch<T>(url: string, fallbackData: T): Promise<T> {
  */
 export async function getProjects(): Promise<Project[]> {
   const url = `${STRAPI_URL}/api/posts?filters[category][slug][$in]=nha-pho,mai-nhat,mai-thai,biet-thu,nha-vuon,noi-that&populate=*&sort=publishedAt:desc`;
-  
+
   const strapiData = await safeFetch<any[] | null>(url, null);
-  
+
   if (!strapiData) {
     return MOCK_PROJECTS;
   }
-  
+
   return strapiData.map(post => ({
     id: post.documentId || String(post.id),
     title: post.title,
     slug: post.slug,
     category: (post.category?.slug || 'nha-pho') as any,
-    image: post.thumbnail?.url 
+    image: post.thumbnail?.url
       ? (post.thumbnail.url.startsWith('http') ? post.thumbnail.url : `${STRAPI_URL}${post.thumbnail.url}`)
       : 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80',
     excerpt: post.excerpt || '',
@@ -65,7 +65,7 @@ export async function getProjects(): Promise<Project[]> {
       area: 'Liên hệ',
       year: '2026'
     },
-    gallery: post.gallery?.map((img: any) => 
+    gallery: post.gallery?.map((img: any) =>
       img.url.startsWith('http') ? img.url : `${STRAPI_URL}${img.url}`
     ) || []
   }));
@@ -76,13 +76,13 @@ export async function getProjects(): Promise<Project[]> {
  */
 export async function getServices(): Promise<Service[]> {
   const url = `${STRAPI_URL}/api/posts?filters[category][slug]=dich-vu&populate=*&sort=publishedAt:asc`;
-  
+
   const strapiData = await safeFetch<any[] | null>(url, null);
-  
+
   if (!strapiData) {
     return MOCK_SERVICES;
   }
-  
+
   return strapiData.map(post => ({
     id: post.documentId || String(post.id),
     title: post.title,
@@ -99,19 +99,19 @@ export async function getServices(): Promise<Service[]> {
  */
 export async function getNews(): Promise<NewsItem[]> {
   const url = `${STRAPI_URL}/api/posts?filters[category][slug][$in]=tin-noi-bo,tin-du-an,phong-thuy,cam-nang&populate=*&sort=publishedAt:desc`;
-  
+
   const strapiData = await safeFetch<any[] | null>(url, null);
-  
+
   if (!strapiData) {
     return MOCK_NEWS;
   }
-  
+
   return strapiData.map(post => ({
     id: post.documentId || String(post.id),
     title: post.title,
     slug: post.slug,
     category: (post.category?.slug || 'cam-nang') as any,
-    image: post.thumbnail?.url 
+    image: post.thumbnail?.url
       ? (post.thumbnail.url.startsWith('http') ? post.thumbnail.url : `${STRAPI_URL}${post.thumbnail.url}`)
       : 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=800&q=80',
     date: post.publishedAt ? new Date(post.publishedAt).toLocaleDateString('vi-VN') : '15/05/2026',
@@ -129,7 +129,7 @@ export async function getPostBySlug(slug: string): Promise<{
   service?: Service;
 } | null> {
   const url = `${STRAPI_URL}/api/posts?filters[slug]=${slug}&populate=*`;
-  
+
   try {
     const res = await fetch(url, { next: { revalidate: 60 } });
     if (res.ok) {
@@ -137,7 +137,7 @@ export async function getPostBySlug(slug: string): Promise<{
       if (json && json.data && json.data.length > 0) {
         const post = json.data[0];
         const categorySlug = post.category?.slug || '';
-        
+
         // Phân loại kiểu dữ liệu dựa trên slug danh mục của bài viết trong Strapi
         if (['nha-pho', 'mai-nhat', 'mai-thai', 'biet-thu', 'nha-vuon', 'noi-that'].includes(categorySlug)) {
           return {
@@ -146,7 +146,7 @@ export async function getPostBySlug(slug: string): Promise<{
               title: post.title,
               slug: post.slug,
               category: categorySlug as any,
-              image: post.thumbnail?.url 
+              image: post.thumbnail?.url
                 ? (post.thumbnail.url.startsWith('http') ? post.thumbnail.url : `${STRAPI_URL}${post.thumbnail.url}`)
                 : 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80',
               excerpt: post.excerpt || '',
@@ -158,7 +158,7 @@ export async function getPostBySlug(slug: string): Promise<{
                 area: 'Liên hệ',
                 year: '2026'
               },
-              gallery: post.gallery?.map((img: any) => 
+              gallery: post.gallery?.map((img: any) =>
                 img.url.startsWith('http') ? img.url : `${STRAPI_URL}${img.url}`
               ) || []
             }
@@ -182,7 +182,7 @@ export async function getPostBySlug(slug: string): Promise<{
               title: post.title,
               slug: post.slug,
               category: categorySlug as any,
-              image: post.thumbnail?.url 
+              image: post.thumbnail?.url
                 ? (post.thumbnail.url.startsWith('http') ? post.thumbnail.url : `${STRAPI_URL}${post.thumbnail.url}`)
                 : 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=800&q=80',
               date: post.publishedAt ? new Date(post.publishedAt).toLocaleDateString('vi-VN') : '15/05/2026',
@@ -232,27 +232,27 @@ export interface SystemSetting {
 
 export async function getSystemSetting(): Promise<SystemSetting> {
   const url = `${STRAPI_URL}/api/setting`;
-  
+
   const defaultFallback: SystemSetting = {
     hotline: '0827.972.555',
     zaloUrl: 'https://zalo.me/0827972555',
     messengerUrl: 'https://www.messenger.com/t/congtykita/',
     tiktokUrl: 'https://www.tiktok.com/@kitahome',
-    facebookUrl: 'https://www.facebook.com/congtykita/',
-    companyName: 'CÔNG TY CỔ PHẦN KIẾN TRÚC VÀ XÂY DỰNG KITA HOME',
+    facebookUrl: 'https://www.facebook.com/share/g/1BCmy6FFhN/',
+    companyName: 'CÔNG TY CỔ PHẦN KIẾN TRÚC VÀ XÂY DỰNG GAMMA HOME',
     slogan: 'Tận tâm trong từng viên gạch – Vững trọn niềm tin trong từng mái nhà',
     addressList: 'VPGD Hà Nội: Cổ Loa, Đông Anh, Hà Nội\nHotline: 0827.972.555',
     addressNorth: 'G29-30 - Khu đấu giá Ngô Thì Nhậm - Hà Cầu - Hà Đông - TP Hà Nội',
     addressSouth: 'Đường T2-41 Khu Biệt Thự Manhattan - Vinhomes Grand Park - P.Long Bình - TP.Thủ Đức - Hồ Chí Minh',
-    email: 'Nhadepkita@gmail.com'
+    email: 'Nhadepgamma@gmail.com'
   };
 
   const strapiData = await safeFetch<any | null>(url, null);
-  
+
   if (!strapiData) {
     return defaultFallback;
   }
-  
+
   return {
     hotline: strapiData.hotline || defaultFallback.hotline,
     zaloUrl: strapiData.zaloUrl || defaultFallback.zaloUrl,
@@ -260,7 +260,7 @@ export async function getSystemSetting(): Promise<SystemSetting> {
     tiktokUrl: strapiData.tiktokUrl || defaultFallback.tiktokUrl,
     youtubeUrl: strapiData.youtubeUrl || undefined,
     facebookPage: strapiData.facebookPage || undefined,
-    facebookUrl: strapiData.facebookUrl || defaultFallback.facebookUrl,
+    facebookUrl: strapiData.facebookUrl || strapiData.facebookPage || defaultFallback.facebookUrl,
     companyName: strapiData.companyName || defaultFallback.companyName,
     taxCode: strapiData.taxCode || undefined,
     slogan: strapiData.slogan || defaultFallback.slogan,
@@ -285,7 +285,7 @@ export interface HeroSlide {
 
 export async function getHeroSlides(): Promise<HeroSlide[]> {
   const url = `${STRAPI_URL}/api/hero-slides?populate=*&sort=orderNumber:asc`;
-  
+
   const defaultFallback: HeroSlide[] = [
     {
       image: '/kita/kita-baner1.webp',
@@ -330,13 +330,13 @@ export async function getHeroSlides(): Promise<HeroSlide[]> {
   ];
 
   const strapiData = await safeFetch<any[] | null>(url, null);
-  
+
   if (!strapiData) {
     return defaultFallback;
   }
-  
+
   return strapiData.map(slide => ({
-    image: slide.image?.url 
+    image: slide.image?.url
       ? (slide.image.url.startsWith('http') ? slide.image.url : `${STRAPI_URL}${slide.image.url}`)
       : '/kita/kita-baner1.webp',
     title: slide.title || '',
