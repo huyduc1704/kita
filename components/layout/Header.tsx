@@ -79,6 +79,46 @@ const NAV_ITEMS: NavItem[] = [
   { label: 'Liên hệ', href: '/lien-he' },
 ];
 
+function MobileNavItem({ item }: { item: NavItem }) {
+  const hasChildren = !!item.children;
+  const [isSubOpen, setIsSubOpen] = useState(false);
+
+  return (
+    <div className="border-b border-zinc-50 last:border-0 py-1">
+      <div className="flex justify-between items-center">
+        <Link
+          href={item.href}
+          className="block py-2.5 text-zinc-800 font-medium uppercase text-sm tracking-wider hover:text-primary"
+        >
+          {item.label}
+        </Link>
+        {hasChildren && (
+          <button
+            onClick={() => setIsSubOpen(!isSubOpen)}
+            className="p-2 text-zinc-500 hover:text-primary cursor-pointer"
+          >
+            <ChevronDown size={18} className={`transition-transform duration-200 ${isSubOpen ? 'rotate-180' : ''}`} />
+          </button>
+        )}
+      </div>
+
+      {hasChildren && isSubOpen && (
+        <div className="pl-4 bg-zinc-50 rounded-md py-1 mt-1 mb-2 flex flex-col">
+          {item.children?.map((child) => (
+            <Link
+              key={child.label}
+              href={child.href}
+              className="py-2 text-sm text-zinc-600 hover:text-primary transition-colors"
+            >
+              {child.label}
+            </Link>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -195,45 +235,9 @@ export default function Header() {
         {isOpen && (
           <div className="lg:hidden w-full bg-white border-t border-zinc-100 shadow-lg overflow-hidden transition-all duration-300">
             <div className="container-kita py-4 flex flex-col gap-2">
-              {NAV_ITEMS.map((item) => {
-                const hasChildren = !!item.children;
-                const [isSubOpen, setIsSubOpen] = useState(false);
-
-                return (
-                  <div key={item.label} className="border-b border-zinc-50 last:border-0 py-1">
-                    <div className="flex justify-between items-center">
-                      <Link
-                        href={item.href}
-                        className="block py-2.5 text-zinc-800 font-medium uppercase text-sm tracking-wider hover:text-primary"
-                      >
-                        {item.label}
-                      </Link>
-                      {hasChildren && (
-                        <button
-                          onClick={() => setIsSubOpen(!isSubOpen)}
-                          className="p-2 text-zinc-500 hover:text-primary"
-                        >
-                          <ChevronDown size={18} className={`transition-transform duration-200 ${isSubOpen ? 'rotate-180' : ''}`} />
-                        </button>
-                      )}
-                    </div>
-
-                    {hasChildren && isSubOpen && (
-                      <div className="pl-4 bg-zinc-50 rounded-md py-1 mt-1 mb-2 flex flex-col">
-                        {item.children?.map((child) => (
-                          <Link
-                            key={child.label}
-                            href={child.href}
-                            className="py-2 text-sm text-zinc-600 hover:text-primary transition-colors"
-                          >
-                            {child.label}
-                          </Link>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                );
-              })}
+              {NAV_ITEMS.map((item) => (
+                <MobileNavItem key={item.label} item={item} />
+              ))}
               <button
                 onClick={openConsultation}
                 className="mt-4 w-full text-center py-3 rounded-full bg-primary hover:bg-primary-dark text-white font-medium uppercase text-sm tracking-wider transition-all cursor-pointer"
