@@ -63,21 +63,18 @@ export default function FloatingContact() {
           href="https://zalo.me/0827972555"
           target="_blank"
           rel="noopener noreferrer"
-          className="group relative flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-b from-amber-500 to-amber-600 border border-amber-400 text-white shadow-lg transition-all duration-300 active:scale-95 shadow-[0_0_15px_rgba(245,158,11,0.35)]"
+          className="group relative flex items-center justify-center w-12 h-12 rounded-full transition-all duration-300 active:scale-95 shadow-[0_0_15px_rgba(0,104,255,0.25)] hover:-translate-y-0.5"
           aria-label="Zalo Kita Home"
         >
-          <span className="absolute left-14 bg-amber-600 text-white text-xs font-semibold px-3 py-1.5 rounded-lg opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-300 whitespace-nowrap shadow-md">
+          <span className="absolute left-14 bg-zinc-900/90 text-white text-xs font-semibold px-3 py-1.5 rounded-lg opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-300 whitespace-nowrap shadow-md z-30">
             Zalo Chat
           </span>
-          <span className="absolute inset-0 rounded-full bg-amber-500/35 animate-ping delay-300 scale-110"></span>
-          <span className="absolute inset-0 rounded-full bg-amber-500/20 animate-ping delay-800 scale-125"></span>
-          
-          <div className="w-8 h-8 rounded-full bg-white flex flex-col items-center justify-center relative z-10 overflow-hidden">
-            <svg viewBox="0 0 24 24" className="w-6 h-6 fill-[#0068ff] -mt-1.5">
-              <path d="M12,2C6.477,2,2,6.477,2,12c0,1.885,0.521,3.649,1.431,5.161L2.072,21.84c-0.12,0.36,0.228,0.708,0.588,0.588l4.679-1.359C8.351,21.479,10.115,22,12,22c5.523,0,10-4.477,10-10S17.523,2,12,2z" />
-            </svg>
-            <span className="absolute text-[8px] font-bold text-[#0068ff] tracking-tighter bottom-[3px] select-none scale-90">Zalo</span>
-          </div>
+          <span className="absolute inset-0 rounded-full bg-[#0068ff]/30 animate-ping scale-110"></span>
+          <img
+            src="/kita/zalo-icon.png"
+            alt="Zalo"
+            className="w-full h-full object-contain relative z-10"
+          />
         </a>
 
         {/* Nút Messenger Chat */}
@@ -85,20 +82,18 @@ export default function FloatingContact() {
           href="https://www.messenger.com/t/congtykita/"
           target="_blank"
           rel="noopener noreferrer"
-          className="group relative flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-b from-amber-500 to-amber-600 border border-amber-400 text-white shadow-lg transition-all duration-300 active:scale-95 shadow-[0_0_15px_rgba(245,158,11,0.35)]"
+          className="group relative flex items-center justify-center w-12 h-12 rounded-full transition-all duration-300 active:scale-95 shadow-[0_0_15px_rgba(0,198,255,0.25)] hover:-translate-y-0.5"
           aria-label="Facebook Messenger"
         >
-          <span className="absolute left-14 bg-amber-600 text-white text-xs font-semibold px-3 py-1.5 rounded-lg opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-300 whitespace-nowrap shadow-md">
+          <span className="absolute left-14 bg-zinc-900/90 text-white text-xs font-semibold px-3 py-1.5 rounded-lg opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-300 whitespace-nowrap shadow-md z-30">
             Facebook Messenger
           </span>
-          <span className="absolute inset-0 rounded-full bg-amber-500/35 animate-ping delay-600 scale-110"></span>
-          <span className="absolute inset-0 rounded-full bg-amber-500/20 animate-ping delay-1100 scale-125"></span>
-          
-          <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-[#00c6ff] to-[#0072ff] flex items-center justify-center relative z-10 shadow-sm">
-            <svg viewBox="0 0 24 24" className="w-5 h-5 fill-white">
-              <path d="M12 2C6.48 2 2 6.02 2 11c0 2.82 1.48 5.31 3.75 6.84V21c0 .41.48.66.83.43l2.84-1.89c.81.22 1.67.35 2.58.35 5.52 0 10-4.02 10-9S17.52 2 12 2zm1.09 11.23l-2.07-2.21-4.03 2.21 4.43-4.7 2.1 2.21 4-2.21-4.43 4.7z" />
-            </svg>
-          </div>
+          <span className="absolute inset-0 rounded-full bg-[#00c6ff]/30 animate-ping scale-110"></span>
+          <img
+            src="/kita/messenger-icon.png"
+            alt="Messenger"
+            className="w-full h-full object-contain relative z-10"
+          />
         </a>
 
         {/* Nút Nhận tư vấn */}
