@@ -39,8 +39,8 @@ const STRENGTHS: Strength[] = [
 
 export default function WhyChooseUs() {
   return (
-    <section 
-      className="relative py-24 bg-cover bg-center overflow-hidden bg-zinc-950" 
+    <section
+      className="relative py-24 bg-cover bg-center overflow-hidden bg-zinc-950"
       style={{ backgroundImage: "url('/kita/Kita-Home-7.webp')" }}
       id="why-us"
     >
@@ -48,7 +48,7 @@ export default function WhyChooseUs() {
       <div className="absolute inset-0 bg-black/80 z-10" />
 
       <div className="container-kita relative z-20">
-        
+
         {/* Section Header */}
         <div className="flex flex-col items-center gap-2 mb-20">
           <h2 className="text-2xl md:text-3xl font-bold tracking-wider font-serif text-white uppercase text-center leading-tight">
@@ -70,19 +70,19 @@ export default function WhyChooseUs() {
                 className="flex flex-col items-center text-center gap-4 group"
               >
                 {/* Circular Gold Icon Container */}
-                <div className="w-16 h-16 rounded-full bg-gradient-to-b from-amber-300 via-amber-500 to-amber-600 shadow-[0_0_15px_rgba(245,158,11,0.3)] flex items-center justify-center text-zinc-950 transition-transform duration-300 group-hover:scale-110">
+                <div className="w-16 h-16 flex items-center justify-center text-zinc-950 transition-transform duration-300 group-hover:scale-110">
                   <img
                     src={item.icon}
                     alt={item.title}
-                    className="w-9 h-9 object-contain"
+                    className="w-16 h-16 object-contain"
                   />
                 </div>
-                
+
                 {/* Title */}
                 <h3 className="font-serif font-bold text-sm md:text-base text-primary-light tracking-wide uppercase leading-snug max-w-xs mt-2">
                   {item.title}
                 </h3>
-                
+
                 {/* Description */}
                 <p className="text-zinc-300 text-xs md:text-sm font-light leading-relaxed max-w-sm">
                   {item.description}
