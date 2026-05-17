@@ -47,7 +47,7 @@ export default function FloatingContact() {
   const hotlineRaw = setting ? setting.hotline.replace(/\./g, '') : '0827972555';
   const hotlineLabel = setting ? setting.hotline : '0827.972.555';
   const zaloHref = setting?.zaloUrl || 'https://zalo.me/0827972555';
-  const messengerHref = setting?.messengerUrl || 'https://www.messenger.com/t/congtykita/';
+  const messengerHref = setting?.messengerUrl || 'https://www.messenger.com/t/100076260787549/';
 
   return (
     <>

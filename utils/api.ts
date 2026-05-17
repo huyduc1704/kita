@@ -236,9 +236,9 @@ export async function getSystemSetting(): Promise<SystemSetting> {
   const defaultFallback: SystemSetting = {
     hotline: '0827.972.555',
     zaloUrl: 'https://zalo.me/0827972555',
-    messengerUrl: 'https://www.messenger.com/t/congtykita/',
+    messengerUrl: 'https://www.messenger.com/t/100076260787549/',
     tiktokUrl: 'https://www.tiktok.com/@kitahome',
-    facebookUrl: 'https://www.facebook.com/share/g/1BCmy6FFhN/',
+    facebookUrl: 'https://www.facebook.com/profile.php?id=100076260787549',
     companyName: 'CÔNG TY CỔ PHẦN KIẾN TRÚC VÀ XÂY DỰNG GAMMA HOME',
     slogan: 'Tận tâm trong từng viên gạch – Vững trọn niềm tin trong từng mái nhà',
     addressList: 'VPGD Hà Nội: Cổ Loa, Đông Anh, Hà Nội\nHotline: 0827.972.555',
