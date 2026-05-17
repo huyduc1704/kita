@@ -1,0 +1,86 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #111827; /* Slate 900 */
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  
+  /* Bảng màu cao cấp Kita Home */
+  --color-primary: #b8860b;      /* Vàng Gold đậm sang trọng */
+  --color-primary-light: #dfb332;/* Vàng Gold sáng */
+  --color-primary-dark: #8b6508; /* Vàng Gold trầm */
+  --color-secondary: #1a202c;    /* Xám đậm Slate */
+  --color-accent: #d4af37;       /* Ánh kim Gold */
+  
+  /* Cấu hình Font chữ từ layout.tsx */
+  --font-sans: var(--font-bai-jamjuree), system-ui, -apple-system, sans-serif;
+  --font-serif: var(--font-bai-jamjuree), Georgia, serif;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  overflow-x: hidden;
+}
+
+/* Khung container 1280px chuẩn Kita Home */
+.container-kita {
+  width: 100%;
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 768px) {
+  .container-kita {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+  background: #c5a85c;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #b8860b;
+}
+
+/* Gold & Red Blinking Animation */
+@keyframes goldRedBlink {
+  0%, 100% {
+    color: #fbbf24;
+  }
+  50% {
+    color: #ef4444;
+  }
+}
+
+.animate-gold-red-blink {
+  animation: goldRedBlink 1.2s ease-in-out infinite;
+}
+
+/* Enforce global styling for all h2 headings with bulletproof specificity */
+html body h2,
+html body h2.text-2xl,
+html body h2.text-3xl,
+html body h2.md\:text-3xl,
+html body h2.lg\:text-3xl,
+html body h2.xl\:text-3xl,
+h2[class*="text-"] {
+  font-size: 26px !important;
+  font-weight: 400 !important;
+}

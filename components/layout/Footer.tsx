@@ -1,0 +1,140 @@
+'use client';
+
+import Link from 'next/link';
+
+export default function Footer() {
+  const openConsultation = (e: React.MouseEvent) => {
+    e.preventDefault();
+    window.dispatchEvent(new CustomEvent('open-consultation-modal'));
+  };
+
+  return (
+    <footer
+      className="relative text-zinc-300 pt-16 pb-0 bg-cover bg-center overflow-hidden bg-zinc-950"
+      style={{ backgroundImage: "url('/kita/FT.webp')" }}
+    >
+      {/* Dark Overlay to make the content highly readable and give a luxury feel */}
+      <div className="absolute inset-0 bg-black/75 z-10" />
+
+      <div className="container-kita relative z-20 mb-12">
+        {/* 3 Column Grid inside the 1280px container */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 max-w-6xl mx-auto px-4 lg:px-0">
+
+          {/* Column 1: Logo & Introduction */}
+          <div className="flex flex-col items-start gap-5">
+            {/* Logo */}
+            <Link href="/" className="flex items-center">
+              <img
+                src="/kita/Kita-Home-FT.png"
+                alt="Kita Home Logo"
+                className="h-16 w-auto object-contain"
+              />
+            </Link>
+
+            {/* Paragraph Text */}
+            <p className="text-xs md:text-sm text-zinc-300 leading-relaxed font-light font-sans text-justify">
+              <strong>KITA HOME</strong> là đơn vị thiết kế và thi công nhà trọn gói được nhiều khách tin tưởng lựa chọn, với hàng trăm công trình chất lượng đã được hoàn thiện, góp phần mang đến không gian sống chỉn chu và ấm áp cho các gia đình Việt.
+            </p>
+
+            {/* Request Consultation Button */}
+            <button
+              onClick={openConsultation}
+              className="inline-flex items-center gap-2 bg-[#f39221] hover:bg-[#f39221]/90 text-white font-bold text-xs uppercase px-5 py-2.5 rounded transition-all duration-300 shadow hover:shadow-lg active:scale-95 mt-2 cursor-pointer"
+            >
+              <span className="text-sm font-bold">≡</span> NHẬN TƯ VẤN THIẾT KẾ
+            </button>
+          </div>
+
+          {/* Column 2: Address & Contact Details */}
+          <div className="flex flex-col gap-5 lg:pl-4">
+            {/* Company Title */}
+            <h3 className="text-white font-bold text-sm uppercase tracking-wider font-sans leading-snug">
+              CÔNG TY CỔ PHẦN KIẾN TRÚC & XÂY DỰNG KITA HOME
+            </h3>
+
+            {/* Contact Information List */}
+            <div className="flex flex-col gap-3.5 text-xs md:text-sm font-light font-sans leading-relaxed">
+              <p>
+                <span className="text-[#f39221] font-bold">Miền Bắc:</span> G29-30 - Khu đấu giá Ngô Thì Nhậm - Hà Cầu - Hà Đông - TP Hà Nội
+              </p>
+              <p>
+                <span className="text-[#f39221] font-bold">Miền Nam:</span> Đường T2-41 Khu Biệt Thự Manhattan - Vinhomes Grand Park - P.Long Bình - TP.Thủ Đức - Hồ Chí Minh
+              </p>
+              <p>
+                <span className="text-[#f39221] font-bold">Hotline:</span> 0827.972.555
+              </p>
+              <p>
+                <span className="text-[#f39221] font-bold">Email:</span> Nhadepkita@gmail.com
+              </p>
+            </div>
+
+            {/* Social Media Links */}
+            <div className="flex gap-3 mt-1">
+              {/* Facebook Button (Blue) */}
+              <a
+                href="https://www.facebook.com/congtykita/?ref=embed_page#"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-8 h-8 rounded-full bg-[#3b5998] flex items-center justify-center text-white hover:opacity-90 transition-all shadow-sm"
+                aria-label="Facebook Kita Home"
+              >
+                <svg className="w-4 h-4 fill-white" viewBox="0 0 24 24">
+                  <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c4.56-.93 8-4.96 8-9.75z" />
+                </svg>
+              </a>
+              {/* TikTok Button (Black) */}
+              <a
+                href="https://www.tiktok.com/@nhadepkita1"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-8 h-8 rounded-full bg-black flex items-center justify-center text-white hover:opacity-90 transition-all shadow-sm"
+                aria-label="TikTok Kita Home"
+              >
+                <svg className="w-4 h-4 fill-white" viewBox="0 0 24 24">
+                  <path d="M12.525.02c1.31 0 2.57.44 3.59 1.25.1.08.15.2.14.33v3.1c0 .12-.07.24-.18.29-.86.37-1.8.44-2.7.2-.12-.03-.21-.13-.21-.26V1.3c0-.7-.57-1.28-1.28-1.28H9.37c-.7 0-1.28.58-1.28 1.28v14.15c0 2.27-1.85 4.12-4.12 4.12-2.28 0-4.12-1.85-4.12-4.12 0-2.28 1.84-4.12 4.12-4.12.35 0 .7.05 1.03.14.12.03.2.14.2.27v3.08c0 .11-.07.2-.17.23-.33.1-.68.1-.99-.02-.62-.25-1.01-.84-1.01-1.5 0-.82.68-1.5 1.5-1.5.83 0 1.5.68 1.5 1.5v12.28c0 .7.58 1.28 1.28 1.28h2.5c.7 0 1.28-.58 1.28-1.28V9.32a6.47 6.47 0 0 0 4.15 1.48c.13 0 .24-.1.24-.23V7.5c0-.12-.08-.22-.19-.24a3.97 3.97 0 0 1-3.25-3.26c-.02-.1-.12-.18-.24-.18h-2.52c-.13 0-.24.1-.24.23V11.2a1.5 1.5 0 0 1-1.5 1.5c-.83 0-1.5-.67-1.5-1.5V1.28c0-.7.58-1.28 1.28-1.28h3.14z" />
+                </svg>
+              </a>
+              {/* YouTube Button (Red) */}
+              <a
+                href="https://www.youtube.com/@nhadepkita"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-8 h-8 rounded-full bg-[#ff0000] flex items-center justify-center text-white hover:opacity-90 transition-all shadow-sm"
+                aria-label="YouTube Kita Home"
+              >
+                <svg className="w-4 h-4 fill-white" viewBox="0 0 24 24">
+                  <path d="M23.498 6.163a3.003 3.003 0 0 0-2.11-2.108C19.524 3.545 12 3.545 12 3.545s-7.525 0-9.387.51A3.003 3.003 0 0 0 .502 6.163C0 8.04 0 12 0 12s0 3.96.502 5.837a3.003 3.003 0 0 0 2.11 2.108c1.862.51 9.387.51 9.387.51s7.525 0 9.388-.51a3.003 3.003 0 0 0 2.11-2.108c.502-1.877.502-5.837.502-5.837s0-3.96-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          {/* Column 3: Live Facebook Page Widget */}
+          <div className="flex flex-col items-center lg:items-end justify-start">
+            <div className="w-full max-w-[340px] bg-white rounded-lg overflow-hidden p-1 shadow-lg border border-zinc-200">
+              <iframe
+                src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fcongtykita&tabs=timeline&width=340&height=310&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId"
+                width="100%"
+                height="310"
+                style={{ border: 'none', overflow: 'hidden' }}
+                scrolling="no"
+                frameBorder="0"
+                allowFullScreen={true}
+                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                title="Kita Home Facebook Fanpage"
+              />
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      {/* Full-width Copyright Bar with dark background */}
+      <div className="relative z-20 bg-black/90 py-4 border-t border-zinc-800 flex justify-center items-center text-[10px] md:text-xs text-zinc-400 font-light text-center px-4">
+        <p className="font-sans">
+          © 2021 Bản quyền thuộc về Kita Home. Thiết kế và Phát triển bởi <a href="https://taoweb.com.vn" target="_blank" rel="noopener noreferrer" className="hover:text-white font-medium transition-colors">TaoWeb.com.vn</a>
+        </p>
+      </div>
+    </footer>
+  );
+}
