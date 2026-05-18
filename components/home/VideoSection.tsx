@@ -16,7 +16,7 @@ const VIDEOS: VideoFeedback[] = [
   {
     id: 'v1',
     title: 'Chủ Nhà Bâng Khuâng trước ngôi nhà cổ, CŨ NHƯNG MÀ QUÝ',
-    channelTitle: 'NHA DEP KITA',
+    channelTitle: 'NHA DEP GAMMA',
     avatar: '/kita/icon-2.png', // Fallback or Kita logo
     thumbnail: 'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=800&q=80',
     youtubeId: 'e1S9Xm45gXU'
@@ -24,7 +24,7 @@ const VIDEOS: VideoFeedback[] = [
   {
     id: 'v2',
     title: 'Cùng Gia Chủ Khám Phá Ngôi Nhà 1.5 Tỷ HIỆN ĐẠI',
-    channelTitle: 'NHA DEP KITA',
+    channelTitle: 'NHA DEP GAMMA',
     avatar: '/kita/icon-2.png',
     thumbnail: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=800&q=80',
     youtubeId: 't6_TExiP7_E'
@@ -32,7 +32,7 @@ const VIDEOS: VideoFeedback[] = [
   {
     id: 'v3',
     title: 'KHÁM PHÁ "Ngôi Biệt Thự Tân Cổ Điển" SIÊU PHẨM tại Hải Phòng',
-    channelTitle: 'NHA DEP KITA',
+    channelTitle: 'NHA DEP GAMMA',
     avatar: '/kita/icon-2.png',
     thumbnail: 'https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=800&q=80',
     youtubeId: '8-kE1KxYq7Y'
@@ -49,7 +49,7 @@ export default function VideoSection() {
         {/* Section Header */}
         <div className="text-center max-w-4xl mx-auto mb-14 flex flex-col items-center gap-2">
           <h2 className="text-2xl md:text-3xl font-bold font-serif text-secondary uppercase tracking-wider whitespace-nowrap">
-            KHÁCH HÀNG NÓI GÌ VỀ KITA HOME
+            KHÁCH HÀNG NÓI GÌ VỀ GAMMA HOME
           </h2>
           <img
             src="/kita/Title.png"
@@ -80,7 +80,7 @@ export default function VideoSection() {
               <div className="absolute top-3 left-3 right-3 flex items-start gap-2.5 z-20 text-white drop-shadow-[0_1px_4px_rgba(0,0,0,0.8)] pointer-events-none">
                 {/* Simulated Logo Avatar */}
                 <div className="w-9 h-9 rounded-full bg-zinc-900 border border-white/20 flex items-center justify-center shrink-0 overflow-hidden">
-                  <span className="text-[10px] font-bold text-primary-light">KITA</span>
+                  <span className="text-[10px] font-bold text-primary-light">GAMMA</span>
                 </div>
                 <div className="flex flex-col gap-0.5 mt-0.5">
                   <h4 className="font-sans font-semibold text-xs md:text-sm line-clamp-1 leading-snug">

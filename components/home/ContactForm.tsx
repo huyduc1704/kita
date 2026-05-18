@@ -59,7 +59,7 @@ export default function ContactForm() {
                   Gửi Thông Tin Thành Công!
                 </h4>
                 <p className="text-zinc-550 text-sm font-light leading-relaxed max-w-sm">
-                  Cảm ơn bạn đã tin tưởng Kita Home. Kiến trúc sư của chúng tôi sẽ liên hệ lại với bạn qua số điện thoại sớm nhất có thể để tư vấn dự toán chi phí chi tiết!
+                  Cảm ơn bạn đã tin tưởng Gamma Home. Kiến trúc sư của chúng tôi sẽ liên hệ lại với bạn qua số điện thoại sớm nhất có thể để tư vấn dự toán chi phí chi tiết!
                 </p>
               </div>
             ) : (
@@ -186,7 +186,7 @@ export default function ContactForm() {
             <div className="w-full h-full relative overflow-hidden rounded shadow-lg border border-zinc-200/50 p-1 bg-white hover:shadow-xl transition-shadow duration-300 min-h-[350px] lg:min-h-full flex">
               <img
                 src="/kita/FB-600x400.jpg"
-                alt="Khách hàng bàn giao chìa khóa trao tay Kita Home"
+                alt="Khách hàng bàn giao chìa khóa trao tay Gamma Home"
                 className="w-full h-full object-cover lg:absolute lg:inset-0 rounded"
               />
             </div>

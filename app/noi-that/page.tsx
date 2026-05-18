@@ -21,16 +21,16 @@ function InteriorContent() {
   // Dynamically filter by sub-category query parameter (?cat=nha-pho, ?cat=biet-thu, etc.)
   const filteredInterior = cat
     ? allInterior.filter((proj) => {
-        const titleLower = proj.title.toLowerCase();
-        const scaleLower = proj.details.scale.toLowerCase();
-        
-        if (cat === 'nha-pho') return titleLower.includes('nhà phố') || scaleLower.includes('nhà phố');
-        if (cat === 'biet-thu') return titleLower.includes('biệt thự') || scaleLower.includes('biệt thự');
-        if (cat === 'chung-cu') return titleLower.includes('chung cư') || titleLower.includes('penthouse') || scaleLower.includes('penthouse');
-        if (cat === 'khach-san') return titleLower.includes('khách sạn') || scaleLower.includes('khách sạn');
-        if (cat === 'van-phong') return titleLower.includes('văn phòng') || scaleLower.includes('văn phòng');
-        return true;
-      })
+      const titleLower = proj.title.toLowerCase();
+      const scaleLower = proj.details.scale.toLowerCase();
+
+      if (cat === 'nha-pho') return titleLower.includes('nhà phố') || scaleLower.includes('nhà phố');
+      if (cat === 'biet-thu') return titleLower.includes('biệt thự') || scaleLower.includes('biệt thự');
+      if (cat === 'chung-cu') return titleLower.includes('chung cư') || titleLower.includes('penthouse') || scaleLower.includes('penthouse');
+      if (cat === 'khach-san') return titleLower.includes('khách sạn') || scaleLower.includes('khách sạn');
+      if (cat === 'van-phong') return titleLower.includes('văn phòng') || scaleLower.includes('văn phòng');
+      return true;
+    })
     : allInterior;
 
   const categoryTitles: Record<string, string> = {
@@ -42,7 +42,7 @@ function InteriorContent() {
   };
 
   const title = cat ? categoryTitles[cat] || 'THIẾT KẾ NỘI THẤT' : 'THIẾT KẾ NỘI THẤT';
-  const description = 'Không gian nội thất là tâm hồn của ngôi nhà. Kita Home mang đến những mẫu thiết kế nội thất phòng khách, phòng bếp, phòng ngủ sang trọng và độc bản. Chúng tôi đề cao sự tinh tế, việc sử dụng các vật liệu cao cấp an toàn và giải pháp tối ưu công năng sinh hoạt tối đa cho mọi gia đình.';
+  const description = 'Không gian nội thất là tâm hồn của ngôi nhà. Gamma Home mang đến những mẫu thiết kế nội thất phòng khách, phòng bếp, phòng ngủ sang trọng và độc bản. Chúng tôi đề cao sự tinh tế, việc sử dụng các vật liệu cao cấp an toàn và giải pháp tối ưu công năng sinh hoạt tối đa cho mọi gia đình.';
 
   // Map filtered projects to CategoryItem
   const items: CategoryItem[] = filteredInterior.map((proj, index) => ({

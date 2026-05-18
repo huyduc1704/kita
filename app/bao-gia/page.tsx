@@ -4,7 +4,7 @@ import CategoryPage, { CategoryItem } from '../../components/shared/CategoryPage
 
 export default function PricingPage() {
   const title = 'BẢNG BÁO GIÁ DỊCH VỤ';
-  const description = 'Kita Home cam kết mang đến dịch vụ thiết kế và thi công xây dựng với bảng giá chi tiết, minh bạch và cạnh tranh nhất trên thị trường. Các gói giải pháp được tối ưu hóa theo từng nhu cầu và ngân sách của chủ đầu tư, cam kết không phát sinh bất kỳ chi phí ngoài hợp đồng.';
+  const description = 'Gamma Home cam kết mang đến dịch vụ thiết kế và thi công xây dựng với bảng giá chi tiết, minh bạch và cạnh tranh nhất trên thị trường. Các gói giải pháp được tối ưu hóa theo từng nhu cầu và ngân sách của chủ đầu tư, cam kết không phát sinh bất kỳ chi phí ngoài hợp đồng.';
 
   // Pricing packages lists mapped as CategoryItem
   const items: CategoryItem[] = [

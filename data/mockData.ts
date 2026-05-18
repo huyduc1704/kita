@@ -60,7 +60,7 @@ export const MOCK_PROJECTS: Project[] = [
     slug: 'thiet-ke-nha-pho-4-tang-1-tum-dong-anh-chi-thu',
     category: 'nha-pho',
     image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80',
-    excerpt: 'Giải quyết bài toán mặt tiền hẹp ở khu đô thị đông đúc, Kita Home mang đến mẫu thiết kế 4 tầng 1 tum hiện đại kết hợp giếng trời đón gió tự nhiên.',
+    excerpt: 'Giải quyết bài toán mặt tiền hẹp ở khu đô thị đông đúc, Gamma Home mang đến mẫu thiết kế 4 tầng 1 tum hiện đại kết hợp giếng trời đón gió tự nhiên.',
     details: {
       client: 'Chị Thu',
       location: 'Đông Anh, Hà Nội',
@@ -176,7 +176,7 @@ export const MOCK_PROJECTS: Project[] = [
   },
   {
     id: '10',
-    title: 'NỘI THẤT BIỆT THỰ MANHATTAN VINHOMES GRAND PARK | KITA HOME',
+    title: 'NỘI THẤT BIỆT THỰ MANHATTAN VINHOMES GRAND PARK | GAMMA HOME',
     slug: 'noi-that-biet-thu-manhattan-vinhomes-grand-park',
     category: 'noi-that',
     image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=80',
@@ -301,8 +301,8 @@ export const MOCK_NEWS: NewsItem[] = [
   },
   {
     id: 'n3',
-    title: 'Kita Home hoàn thiện bàn giao biệt thự mái Nhật tại Thạch Thất',
-    slug: 'kita-home-ban-giao-biet-thu-mai-nhat-thach-that',
+    title: 'Gamma Home hoàn thiện bàn giao biệt thự mái Nhật tại Thạch Thất',
+    slug: 'gamma-home-ban-giao-biet-thu-mai-nhat-thach-that',
     category: 'tin-du-an',
     image: 'https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=800&q=80',
     date: '08/05/2026',

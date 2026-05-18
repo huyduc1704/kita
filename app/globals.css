@@ -9,7 +9,7 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   
-  /* Bảng màu cao cấp Kita Home */
+  /* Bảng màu cao cấp Gamma Home */
   --color-primary: #b8860b;      /* Vàng Gold đậm sang trọng */
   --color-primary-light: #dfb332;/* Vàng Gold sáng */
   --color-primary-dark: #8b6508; /* Vàng Gold trầm */
@@ -27,7 +27,7 @@ body {
   overflow-x: hidden;
 }
 
-/* Khung container 1280px chuẩn Kita Home */
+/* Khung container 1280px chuẩn Gamma Home */
 .container-kita {
   width: 100%;
   max-width: 1280px;

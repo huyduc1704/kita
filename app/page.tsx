@@ -28,7 +28,7 @@ export default function Home() {
       {/* 6. Kinh nghiệm xây dựng */}
       <ExperienceSection />
 
-      {/* 7. Khách hàng nói gì về Kita Home */}
+      {/* 7. Khách hàng nói gì về Gamma Home */}
       <VideoSection />
 
       {/* 8. Form nhận tư vấn / Quà tặng miễn phí thiết kế */}

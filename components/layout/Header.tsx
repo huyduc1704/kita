@@ -17,8 +17,8 @@ const NAV_ITEMS: NavItem[] = [
     label: 'Giới thiệu',
     href: '/gioi-thieu',
     children: [
-      { label: 'Về Kita Home', href: '/gioi-thieu' },
-      { label: 'Kita Home Profile', href: '/gioi-thieu#profile' },
+      { label: 'Về Gamma Home', href: '/gioi-thieu' },
+      { label: 'Gamma Home Profile', href: '/gioi-thieu#profile' },
       { label: 'Sơ đồ tổ chức', href: '/gioi-thieu#so-do' },
       { label: 'Giá trị cốt lõi', href: '/gioi-thieu#gia-tri' },
     ],

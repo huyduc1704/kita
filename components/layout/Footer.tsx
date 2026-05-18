@@ -42,7 +42,7 @@ export default function Footer() {
             <Link href="/" className="flex items-center">
               <img
                 src="/kita/gamma-home.jpg"
-                alt="Kita Home Logo"
+                alt="Gamma Home Logo"
                 className="h-16 w-auto object-contain"
               />
             </Link>
@@ -104,7 +104,7 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-8 h-8 rounded-full overflow-hidden flex items-center justify-center hover:opacity-90 hover:scale-105 active:scale-95 transition-all shadow-sm"
-                aria-label="TikTok Kita Home"
+                aria-label="TikTok Gamma Home"
               >
                 <img
                   src="/kita/tiktok-icon.png"
@@ -118,7 +118,7 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-8 h-8 rounded-full bg-[#ff0000] flex items-center justify-center text-white hover:opacity-90 transition-all shadow-sm"
-                aria-label="YouTube Kita Home"
+                aria-label="YouTube Gamma Home"
               >
                 <svg className="w-4 h-4 fill-white" viewBox="0 0 24 24">
                   <path d="M23.498 6.163a3.003 3.003 0 0 0-2.11-2.108C19.524 3.545 12 3.545 12 3.545s-7.525 0-9.387.51A3.003 3.003 0 0 0 .502 6.163C0 8.04 0 12 0 12s0 3.96.502 5.837a3.003 3.003 0 0 0 2.11 2.108c1.862.51 9.387.51 9.387.51s7.525 0 9.388-.51a3.003 3.003 0 0 0 2.11-2.108c.502-1.877.502-5.837.502-5.837s0-3.96-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />

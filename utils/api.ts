@@ -40,7 +40,7 @@ async function safeFetch<T>(url: string, fallbackData: T): Promise<T> {
  * Tự động đồng bộ hóa cấu hình giữa Strapi và MOCK_PROJECTS
  */
 export async function getProjects(): Promise<Project[]> {
-  const url = `${STRAPI_URL}/api/posts?filters[category][slug][$in]=nha-pho,mai-nhat,mai-thai,biet-thu,nha-vuon,noi-that&populate=*&sort=publishedAt:desc`;
+  const url = `${STRAPI_URL}/api/posts?filters[category][slug][$in][0]=nha-pho&filters[category][slug][$in][1]=mai-nhat&filters[category][slug][$in][2]=mai-thai&filters[category][slug][$in][3]=biet-thu&filters[category][slug][$in][4]=nha-vuon&filters[category][slug][$in][5]=noi-that&populate=*&sort=publishedAt:desc`;
 
   const strapiData = await safeFetch<any[] | null>(url, null);
 
@@ -59,7 +59,7 @@ export async function getProjects(): Promise<Project[]> {
     excerpt: post.excerpt || '',
     description: post.content || '',
     details: post.details || {
-      client: 'Khách hàng Kita Home',
+      client: 'Khách hàng Gamma Home',
       location: 'Việt Nam',
       scale: 'Hiện đại',
       area: 'Liên hệ',
@@ -98,7 +98,7 @@ export async function getServices(): Promise<Service[]> {
  * 3. LẤY DANH SÁCH TIN TỨC / CẨM NANG (NEWS)
  */
 export async function getNews(): Promise<NewsItem[]> {
-  const url = `${STRAPI_URL}/api/posts?filters[category][slug][$in]=tin-noi-bo,tin-du-an,phong-thuy,cam-nang&populate=*&sort=publishedAt:desc`;
+  const url = `${STRAPI_URL}/api/posts?filters[category][slug][$in][0]=tin-noi-bo&filters[category][slug][$in][1]=tin-du-an&filters[category][slug][$in][2]=phong-thuy&filters[category][slug][$in][3]=cam-nang&populate=*&sort=publishedAt:desc`;
 
   const strapiData = await safeFetch<any[] | null>(url, null);
 
@@ -152,7 +152,7 @@ export async function getPostBySlug(slug: string): Promise<{
               excerpt: post.excerpt || '',
               description: post.content || '',
               details: post.details || {
-                client: 'Khách hàng Kita Home',
+                client: 'Khách hàng Gamma Home',
                 location: 'Việt Nam',
                 scale: 'Hiện đại',
                 area: 'Liên hệ',
@@ -291,7 +291,7 @@ export async function getHeroSlides(): Promise<HeroSlide[]> {
       image: '/kita/kita-baner1.webp',
       title: 'KIẾN TẠO TỔ ẤM TRỌN NIỀM TIN',
       subtitle: '“Tận tâm trong từng viên gạch – Vững trọn niềm tin trong từng mái nhà”',
-      highlight: 'KITA HOME',
+      highlight: 'GAMMA HOME',
       ctaText: 'Xem các dự án',
       ctaLink: '#projects',
     },

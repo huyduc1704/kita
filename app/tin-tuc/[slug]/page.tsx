@@ -20,7 +20,7 @@ export default function NewsDetailPage() {
 
   useEffect(() => {
     getNews().then(setNewsList);
-    
+
     if (!isSubCategory) {
       getPostBySlug(slug).then((res) => {
         if (res && res.newsItem) {
@@ -40,11 +40,11 @@ export default function NewsDetailPage() {
   if (isSubCategory) {
     const targetCat = slug === 'tin-tuc-noi-bo' ? 'tin-noi-bo' : 'tin-du-an';
     const filteredNews = newsList.filter((news) => news.category === targetCat);
-    
+
     const title = slug === 'tin-tuc-noi-bo' ? 'TIN TỨC NỘI BỘ' : 'TIN TỨC DỰ ÁN THỰC TẾ';
     const desc = slug === 'tin-tuc-noi-bo'
-      ? 'Cập nhật các hoạt động văn hóa, sự kiện nội bộ, đào tạo và đời sống văn phòng của cán bộ nhân viên công ty Kita Home.'
-      : 'Tổng hợp tin tức thi công trực tiếp, tiến độ xây dựng, lễ động thổ và bàn giao chìa khóa trao tay các công trình thực tế của Kita Home.';
+      ? 'Cập nhật các hoạt động văn hóa, sự kiện nội bộ, đào tạo và đời sống văn phòng của cán bộ nhân viên công ty Gamma Home.'
+      : 'Tổng hợp tin tức thi công trực tiếp, tiến độ xây dựng, lễ động thổ và bàn giao chìa khóa trao tay các công trình thực tế của Gamma Home.';
 
     const items: CategoryItem[] = filteredNews.map((news, index) => ({
       id: news.id,
@@ -79,10 +79,10 @@ export default function NewsDetailPage() {
   return (
     <article className="py-12 bg-white min-h-screen font-sans">
       <div className="container-kita max-w-4xl mx-auto px-4">
-        
+
         {/* Back navigation */}
-        <Link 
-          href="/tin-tuc" 
+        <Link
+          href="/tin-tuc"
           className="inline-flex items-center gap-1 text-zinc-550 hover:text-[#f39221] text-xs font-semibold mb-6 transition-colors"
         >
           <ArrowLeft size={14} /> Quay lại danh sách tin tức
@@ -96,7 +96,7 @@ export default function NewsDetailPage() {
           <h1 className="text-xl md:text-3xl font-bold font-serif text-zinc-950 leading-snug uppercase">
             {article.title}
           </h1>
-          
+
           {/* Metadata */}
           <div className="flex flex-wrap items-center gap-4 text-xs text-zinc-500 border-y border-zinc-100 py-3 mt-2 font-medium">
             <div className="flex items-center gap-1.5">
@@ -105,7 +105,7 @@ export default function NewsDetailPage() {
             </div>
             <div className="flex items-center gap-1.5">
               <User size={14} className="text-zinc-400" />
-              <span>Ban biên tập Kita Home</span>
+              <span>Ban biên tập Gamma Home</span>
             </div>
             <div className="flex items-center gap-1.5">
               <Eye size={14} className="text-zinc-400" />
@@ -116,8 +116,8 @@ export default function NewsDetailPage() {
 
         {/* Large featured photo */}
         <div className="relative w-full h-[300px] md:h-[450px] overflow-hidden bg-zinc-100 mb-8 shadow-sm">
-          <img 
-            src={article.image} 
+          <img
+            src={article.image}
             alt={article.title}
             className="w-full h-full object-cover"
           />
@@ -132,13 +132,13 @@ export default function NewsDetailPage() {
             Đối với bất kỳ gia đình nào, ngôi nhà luôn là công trình trọng đại nhất cả cuộc đời. Để có được một tổ ấm chỉn chu, vững chãi với chi phí tối ưu, quy trình thiết kế và thi công đòi hỏi sự phối hợp nhịp nhàng giữa chủ đầu tư và nhà thầu xây dựng.
           </p>
           <p>
-            Tại <strong>Kita Home</strong>, chúng tôi luôn nỗ lực chuẩn hóa quy trình làm việc từ khâu khảo sát thực tế, tư vấn phong thủy chuyên sâu, thiết kế phối cảnh 3D ngoại thất, hồ sơ kỹ thuật chi tiết đến việc thi công trọn gói bàn giao chìa khóa trao tay.
+            Tại <strong>Gamma Home</strong>, chúng tôi luôn nỗ lực chuẩn hóa quy trình làm việc từ khâu khảo sát thực tế, tư vấn phong thủy chuyên sâu, thiết kế phối cảnh 3D ngoại thất, hồ sơ kỹ thuật chi tiết đến việc thi công trọn gói bàn giao chìa khóa trao tay.
           </p>
           <p>
-            Bằng tâm huyết của những kiến trúc sư giàu kinh nghiệm, kết hợp hệ khung kết cấu sắt thép Hòa Phát chính hãng, xi măng Bút Sơn chất lượng cao và quy trình bảo dưỡng bê tông nghiêm ngặt, mỗi công trình mang thương hiệu Kita Home đều bền bỉ, thách thức thời gian.
+            Bằng tâm huyết của những kiến trúc sư giàu kinh nghiệm, kết hợp hệ khung kết cấu sắt thép Hòa Phát chính hãng, xi măng Bút Sơn chất lượng cao và quy trình bảo dưỡng bê tông nghiêm ngặt, mỗi công trình mang thương hiệu Gamma Home đều bền bỉ, thách thức thời gian.
           </p>
           <p className="italic text-zinc-500 mt-4 border-t border-zinc-100 pt-4">
-            Bài viết được tổng hợp và biên soạn bởi Ban biên tập Truyền thông Công ty Cổ phần Kiến trúc & Xây dựng KITA HOME.
+            Bài viết được tổng hợp và biên soạn bởi Ban biên tập Truyền thông Công ty Cổ phần Kiến trúc & Xây dựng GAMMA HOME.
           </p>
         </div>
 
@@ -151,8 +151,8 @@ export default function NewsDetailPage() {
             {relatedArticles.map((rel) => (
               <div key={rel.id} className="flex flex-col gap-3 group">
                 <div className="relative h-36 overflow-hidden bg-zinc-100">
-                  <img 
-                    src={rel.image} 
+                  <img
+                    src={rel.image}
                     alt={rel.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                   />

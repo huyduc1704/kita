@@ -105,14 +105,14 @@ export default function KnowledgeDetailPage() {
 
   if (isSubCategory) {
     const subCat = subCategoryMappings[slug];
-    
+
     // Filter articles representing that category dynamically (e.g. show relevant articles)
     const activeArticles = articles.length > 0 ? articles : defaultMockItems;
     const filteredItems = slug === 'kien-thuc-phong-thuy'
       ? activeArticles.filter((p) => p.slug.includes('phong-thuy') || p.category === 'phong-thuy')
       : slug === 'du-toan-chi-phi'
-      ? activeArticles.filter((p) => p.slug.includes('du-toan') || p.slug.includes('chi-phi'))
-      : activeArticles;
+        ? activeArticles.filter((p) => p.slug.includes('du-toan') || p.slug.includes('chi-phi'))
+        : activeArticles;
 
     return (
       <CategoryPage
@@ -145,10 +145,10 @@ export default function KnowledgeDetailPage() {
   return (
     <article className="py-12 bg-white min-h-screen font-sans">
       <div className="container-kita max-w-4xl mx-auto px-4">
-        
+
         {/* Back link */}
-        <Link 
-          href="/kien-thuc" 
+        <Link
+          href="/kien-thuc"
           className="inline-flex items-center gap-1 text-zinc-550 hover:text-[#f39221] text-xs font-semibold mb-6 transition-colors"
         >
           <ArrowLeft size={14} /> Quay lại danh sách kiến thức
@@ -162,7 +162,7 @@ export default function KnowledgeDetailPage() {
           <h1 className="text-xl md:text-3xl font-bold font-serif text-zinc-950 leading-snug uppercase">
             {article.title}
           </h1>
-          
+
           {/* Metadata */}
           <div className="flex flex-wrap items-center gap-4 text-xs text-zinc-500 border-y border-zinc-100 py-3 mt-2 font-medium">
             <div className="flex items-center gap-1.5">
@@ -171,7 +171,7 @@ export default function KnowledgeDetailPage() {
             </div>
             <div className="flex items-center gap-1.5">
               <User size={14} className="text-zinc-400" />
-              <span>Ban kỹ thuật Kita Home</span>
+              <span>Ban kỹ thuật Gamma Home</span>
             </div>
             <div className="flex items-center gap-1.5">
               <Eye size={14} className="text-zinc-400" />
@@ -182,8 +182,8 @@ export default function KnowledgeDetailPage() {
 
         {/* Article Banner photo */}
         <div className="relative w-full h-[300px] md:h-[450px] overflow-hidden bg-zinc-100 mb-8 shadow-sm">
-          <img 
-            src={article.image} 
+          <img
+            src={article.image}
             alt={article.title}
             className="w-full h-full object-cover"
           />
@@ -198,13 +198,13 @@ export default function KnowledgeDetailPage() {
             Trước khi tiến hành xây dựng ngôi nhà mơ ước, việc hiểu rõ các tiêu chuẩn kỹ thuật thi công xây dựng và nghiệm thu vật tư là vô cùng thiết thực. Điều này giúp gia chủ chủ động kiểm soát tiến độ, hạn chế tối đa các chi phí phát sinh vô lý và giám sát nhà thầu thi công hiệu quả.
           </p>
           <p>
-            Trong khuôn khổ bài viết này, đội ngũ kỹ sư xây dựng giàu kinh nghiệm của <strong>Kita Home</strong> xin chia sẻ chi tiết các hạng mục cẩm nang cần ghi nhớ.
+            Trong khuôn khổ bài viết này, đội ngũ kỹ sư xây dựng giàu kinh nghiệm của <strong>Gamma Home</strong> xin chia sẻ chi tiết các hạng mục cẩm nang cần ghi nhớ.
           </p>
           <p>
-            Bằng việc sử dụng thép Việt Nhật, Hòa Phát chính hãng, xi măng cường độ cao cùng cấp phối bê tông chuẩn kỹ thuật và sự giám sát sát sao của đội ngũ kỹ sư tại hiện trường, mỗi mái nhà do Kita Home hoàn thiện đều mang lại sự vững tâm tuyệt đối cho gia chủ qua nhiều thế hệ.
+            Bằng việc sử dụng thép Việt Nhật, Hòa Phát chính hãng, xi măng cường độ cao cùng cấp phối bê tông chuẩn kỹ thuật và sự giám sát sát sao của đội ngũ kỹ sư tại hiện trường, mỗi mái nhà do Gamma Home hoàn thiện đều mang lại sự vững tâm tuyệt đối cho gia chủ qua nhiều thế hệ.
           </p>
           <p className="italic text-zinc-500 mt-4 border-t border-zinc-100 pt-4">
-            Bài viết được tổng hợp từ cẩm nang kỹ thuật thi công thực tế của Ban Giám sát Kỹ thuật Công ty Cổ phần Kiến trúc & Xây dựng KITA HOME.
+            Bài viết được tổng hợp từ cẩm nang kỹ thuật thi công thực tế của Ban Giám sát Kỹ thuật Công ty Cổ phần Kiến trúc & Xây dựng GAMMA HOME.
           </p>
         </div>
 
@@ -217,8 +217,8 @@ export default function KnowledgeDetailPage() {
             {relatedArticles.map((rel) => (
               <div key={rel.id} className="flex flex-col gap-3 group">
                 <div className="relative h-36 overflow-hidden bg-zinc-100">
-                  <img 
-                    src={rel.image} 
+                  <img
+                    src={rel.image}
                     alt={rel.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                   />

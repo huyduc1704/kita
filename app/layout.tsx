@@ -13,8 +13,8 @@ const baiJamjuree = Bai_Jamjuree({
 });
 
 export const metadata: Metadata = {
-  title: "Kita Home | Thiết kế và Thi công trọn gói nhà phố, biệt thự đẹp",
-  description: "Kita Home chuyên thiết kế kiến trúc, thiết kế & thi công nội thất, xây nhà trọn gói uy tín hàng đầu Việt Nam. Tận tâm trong từng viên gạch - Vững trọn niềm tin.",
+  title: "Gamma Home | Thiết kế và Thi công trọn gói nhà phố, biệt thự đẹp",
+  description: "Gamma Home chuyên thiết kế kiến trúc, thiết kế & thi công nội thất, xây nhà trọn gói uy tín hàng đầu Việt Nam. Tận tâm trong từng viên gạch - Vững trọn niềm tin.",
 };
 
 export default function RootLayout({

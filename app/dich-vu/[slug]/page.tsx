@@ -18,12 +18,12 @@ export default function ServiceDetailPage() {
   const serviceMappings: Record<string, { title: string; desc: string; filter: (p: any) => boolean }> = {
     'xay-nha-tron-goi': {
       title: 'DỰ ÁN XÂY NHÀ TRỌN GÓI',
-      desc: 'Tổng hợp các công trình Xây nhà trọn gói tiêu biểu được bàn giao chìa khóa trao tay bởi Kita Home, cam kết kết cấu chịu lực an toàn bền bỉ và chất lượng hoàn thiện tuyệt hảo.',
+      desc: 'Tổng hợp các công trình Xây nhà trọn gói tiêu biểu được bàn giao chìa khóa trao tay bởi Gamma Home, cam kết kết cấu chịu lực an toàn bền bỉ và chất lượng hoàn thiện tuyệt hảo.',
       filter: (p) => p.category !== 'noi-that',
     },
     'thiet-ke-kien-truc': {
       title: 'HỒ SƠ THIẾT KẾ KIẾN TRÚC',
-      desc: 'Các mẫu hồ sơ thiết kế kiến trúc nhà phố hiện đại, biệt thự sang trọng, nhà vườn mái Nhật, mái Thái được sáng tạo bởi đội ngũ kiến trúc sư Kita Home.',
+      desc: 'Các mẫu hồ sơ thiết kế kiến trúc nhà phố hiện đại, biệt thự sang trọng, nhà vườn mái Nhật, mái Thái được sáng tạo bởi đội ngũ kiến trúc sư Gamma Home.',
       filter: (p) => p.category !== 'noi-that',
     },
     'thiet-ke-noi-that': {
@@ -33,14 +33,14 @@ export default function ServiceDetailPage() {
     },
     'thi-cong-phan-tho': {
       title: 'CÔNG TRÌNH THI CÔNG PHẦN THÔ',
-      desc: 'Các công trình đang và đã triển khai phần thô kết cấu thép móng, cột dầm sàn chất lượng bê tông cao cấp của công ty cổ phần kiến trúc xây dựng Kita Home.',
+      desc: 'Các công trình đang và đã triển khai phần thô kết cấu thép móng, cột dầm sàn chất lượng bê tông cao cấp của công ty cổ phần kiến trúc xây dựng Gamma Home.',
       filter: (p) => p.category !== 'noi-that',
     },
   };
 
   const service = serviceMappings[slug] || {
-    title: 'DỊCH VỤ CỦA KITA HOME',
-    desc: 'Kita Home cung cấp các giải pháp toàn diện về tư vấn thiết kế kiến trúc, thiết kế nội thất, thi công xây thô và xây dựng trọn gói uy tín chất lượng.',
+    title: 'DỊCH VỤ CỦA GAMMA HOME',
+    desc: 'Gamma Home cung cấp các giải pháp toàn diện về tư vấn thiết kế kiến trúc, thiết kế nội thất, thi công xây thô và xây dựng trọn gói uy tín chất lượng.',
     filter: () => true,
   };
 

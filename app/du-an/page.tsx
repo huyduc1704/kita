@@ -30,7 +30,7 @@ function ProjectsContent() {
   };
 
   const title = cat ? categoryTitles[cat] || 'DỰ ÁN TIÊU BIỂU' : 'DỰ ÁN TIÊU BIỂU';
-  const description = 'Các Công trình và Dự án thiết kế kiến trúc dưới bàn tay tài hoa của các kiến trúc sư tại KITA HOME mang đến một phong cách Đặc biệt - Sang trọng và Cá tính riêng. Xây dựng kiến trúc tốt là nền tảng cho sự phát triển của mọi gia đình. Một không gian sống tốt hòa hợp với Thiên nhiên - Tinh tế trong thẩm mỹ và vô cùng tiện ích cho không gian sống độc đáo.';
+  const description = 'Các Công trình và Dự án thiết kế kiến trúc dưới bàn tay tài hoa của các kiến trúc sư tại GAMMA HOME mang đến một phong cách Đặc biệt - Sang trọng và Cá tính riêng. Xây dựng kiến trúc tốt là nền tảng cho sự phát triển của mọi gia đình. Một không gian sống tốt hòa hợp với Thiên nhiên - Tinh tế trong thẩm mỹ và vô cùng tiện ích cho không gian sống độc đáo.';
 
   // Map filtered projects to CategoryItem interface
   const items: CategoryItem[] = filteredProjects.map((proj, index) => ({

@@ -188,7 +188,7 @@ export default function ConsultationModal() {
             <div className="flex flex-col gap-1">
               <h4 className="text-white text-lg font-bold">GỬI THÔNG TIN THÀNH CÔNG!</h4>
               <p className="text-white/80 text-xs md:text-sm font-light leading-relaxed">
-                Kita Home đã nhận được yêu cầu tư vấn của bạn. Chúng tôi sẽ liên hệ trong thời gian sớm nhất!
+                Gamma Home đã nhận được yêu cầu tư vấn của bạn. Chúng tôi sẽ liên hệ trong thời gian sớm nhất!
               </p>
             </div>
           </div>
