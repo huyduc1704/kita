@@ -193,11 +193,11 @@ export default function ContactForm() {
 
           {/* Cột Phải: Ảnh Feedback khách hàng (50%) */}
           <div className="px-[15px] w-full flex flex-col items-stretch">
-            <div className="w-full h-full relative overflow-hidden rounded shadow-lg border border-zinc-200/50 p-1 bg-white hover:shadow-xl transition-shadow duration-300 min-h-[350px] lg:min-h-full flex">
+            <div className="w-full h-full relative overflow-hidden rounded shadow-lg border border-zinc-200/50 p-1 bg-zinc-50 hover:shadow-xl transition-shadow duration-300 min-h-[350px] lg:min-h-full flex items-center justify-center">
               <img
                 src={feedbackImage}
                 alt="Khách hàng bàn giao chìa khóa trao tay Gamma Home"
-                className="w-full h-full object-cover lg:absolute lg:inset-0 rounded"
+                className="w-full h-full object-contain lg:absolute lg:inset-0 rounded"
               />
             </div>
           </div>
