@@ -1,7 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Home, User, Phone, Layers, MapPin, Mail, CheckCircle } from 'lucide-react';
+import { getSystemSetting } from '../../utils/api';
 
 export default function ContactForm() {
   const [name, setName] = useState('');
@@ -12,6 +13,15 @@ export default function ContactForm() {
   const [message, setMessage] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [feedbackImage, setFeedbackImage] = useState('/kita/FB-600x400.jpg');
+
+  useEffect(() => {
+    getSystemSetting().then((setting) => {
+      if (setting?.feedbackImage) {
+        setFeedbackImage(setting.feedbackImage);
+      }
+    });
+  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -185,7 +195,7 @@ export default function ContactForm() {
           <div className="px-[15px] w-full flex flex-col items-stretch">
             <div className="w-full h-full relative overflow-hidden rounded shadow-lg border border-zinc-200/50 p-1 bg-white hover:shadow-xl transition-shadow duration-300 min-h-[350px] lg:min-h-full flex">
               <img
-                src="/kita/FB-600x400.jpg"
+                src={feedbackImage}
                 alt="Khách hàng bàn giao chìa khóa trao tay Gamma Home"
                 className="w-full h-full object-cover lg:absolute lg:inset-0 rounded"
               />

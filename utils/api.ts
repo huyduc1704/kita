@@ -230,10 +230,11 @@ export interface SystemSetting {
   addressNorth?: string;
   addressSouth?: string;
   email?: string;
+  feedbackImage?: string;
 }
 
 export async function getSystemSetting(): Promise<SystemSetting> {
-  const url = `${STRAPI_URL}/api/setting`;
+  const url = `${STRAPI_URL}/api/setting?populate=*`;
 
   const defaultFallback: SystemSetting = {
     hotline: '0827.972.555',
@@ -269,7 +270,10 @@ export async function getSystemSetting(): Promise<SystemSetting> {
     addressList: strapiData.addressList || defaultFallback.addressList,
     addressNorth: strapiData.addressNorth || defaultFallback.addressNorth,
     addressSouth: strapiData.addressSouth || defaultFallback.addressSouth,
-    email: strapiData.email || defaultFallback.email
+    email: strapiData.email || defaultFallback.email,
+    feedbackImage: strapiData.feedbackImage?.url
+      ? (strapiData.feedbackImage.url.startsWith('http') ? strapiData.feedbackImage.url : `${STRAPI_URL}${strapiData.feedbackImage.url}`)
+      : undefined
   };
 }
 
