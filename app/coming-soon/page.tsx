@@ -41,7 +41,7 @@ export default function ComingSoonPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#0c0326] via-[#1b1442] to-[#0c0326] flex items-center justify-center p-4 md:p-8 overflow-hidden relative font-sans">
-      
+
       {/* Dynamic Background Glowing Spheres */}
       <div className="absolute top-1/4 left-1/4 w-72 h-72 rounded-full bg-gradient-to-tr from-amber-500 to-orange-600 opacity-20 blur-3xl animate-pulse duration-[8000ms]" />
       <div className="absolute bottom-1/3 right-1/4 w-96 h-96 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 opacity-25 blur-3xl animate-pulse duration-[12000ms]" />
@@ -57,17 +57,17 @@ export default function ComingSoonPage() {
 
       {/* Main Glass Box Container */}
       <div className="relative w-full max-w-[1100px] bg-white/[0.03] backdrop-blur-2xl border border-white/10 rounded-3xl p-6 md:p-12 shadow-2xl flex flex-col justify-between min-h-[550px] z-10">
-        
+
         {/* Header Row */}
         <header className="flex justify-between items-center mb-10 md:mb-12">
           <Link href="/" className="transition-opacity hover:opacity-90">
-            <img 
-              src="/kita/gamma-home.jpg" 
-              alt="Gamma Home Logo" 
-              className="h-10 md:h-12 w-auto object-contain rounded-lg" 
+            <img
+              src="/kita/gamma-home.jpg"
+              alt="Gamma Home Logo"
+              className="h-10 md:h-12 w-auto object-contain rounded-lg"
             />
           </Link>
-          
+
           <Link href="/" className="inline-flex items-center gap-1.5 text-zinc-400 hover:text-white text-xs font-semibold bg-white/5 hover:bg-white/10 border border-white/10 rounded-full px-4 py-2 transition-all duration-300">
             <ArrowLeft size={12} />
             <span>Trang chủ</span>
@@ -76,7 +76,7 @@ export default function ComingSoonPage() {
 
         {/* Content & Timer Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 items-center mb-10 md:mb-12">
-          
+
           {/* Left Column: Text Content */}
           <div className="lg:col-span-6 flex flex-col gap-4 text-left">
             <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold font-serif text-white leading-tight">
@@ -89,7 +89,7 @@ export default function ComingSoonPage() {
 
             {/* Email Contact Badge */}
             <div className="mt-4 self-start">
-              <a 
+              <a
                 href="mailto:lienhe@gammahome.com.vn"
                 className="inline-flex items-center gap-3 bg-white/[0.06] hover:bg-white/[0.1] border border-white/10 hover:border-white/20 rounded-full pl-3 pr-5 py-2 transition-all duration-300 group shadow-lg"
               >
@@ -98,7 +98,7 @@ export default function ComingSoonPage() {
                 </div>
                 <div className="flex flex-col">
                   <span className="text-[9px] text-zinc-500 font-semibold uppercase tracking-wider">Hỗ trợ kỹ thuật</span>
-                  <span className="text-xs text-white font-medium">lienhe@gammahome.com.vn</span>
+                  <span className="text-xs text-white font-medium">gammahome.xd@gmail.com</span>
                 </div>
               </a>
             </div>
@@ -106,13 +106,13 @@ export default function ComingSoonPage() {
 
           {/* Right Column: Dynamic Countdown Timer */}
           <div className="lg:col-span-6 flex justify-center lg:justify-end relative">
-            
+
             {/* Soft Glowing Spheres Behind Timer */}
             <div className="absolute -top-6 -right-6 w-24 h-24 bg-orange-500/30 rounded-full blur-xl animate-pulse" />
             <div className="absolute -bottom-8 -left-6 w-20 h-20 bg-sky-500/30 rounded-full blur-xl" />
 
             <div className="flex gap-3 md:gap-5 relative z-10">
-              
+
               {/* Card Days */}
               <div className="flex flex-col items-center justify-center bg-white/[0.04] backdrop-blur-md border border-white/10 rounded-2xl p-4 md:p-6 min-w-[75px] md:min-w-[95px] text-white shadow-xl shadow-black/25">
                 <span className="text-2xl md:text-4xl font-extrabold tracking-wide font-mono bg-gradient-to-b from-white to-zinc-300 bg-clip-text text-transparent">
@@ -153,7 +153,7 @@ export default function ComingSoonPage() {
 
         {/* Footer Row */}
         <footer className="flex flex-col sm:flex-row gap-4 justify-between items-center pt-8 border-t border-white/5 text-zinc-500 text-[10px] md:text-xs tracking-wider">
-          
+
           {/* Social Links */}
           <div className="flex gap-4 items-center">
             <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors duration-200">
