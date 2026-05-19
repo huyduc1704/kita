@@ -128,15 +128,24 @@ export default function NewsDetailPage() {
           <p className="font-semibold text-zinc-900 border-l-4 border-[#f39221] pl-4 py-1.5 bg-zinc-50 rounded-r">
             {article.excerpt}
           </p>
-          <p>
-            Đối với bất kỳ gia đình nào, ngôi nhà luôn là công trình trọng đại nhất cả cuộc đời. Để có được một tổ ấm chỉn chu, vững chãi với chi phí tối ưu, quy trình thiết kế và thi công đòi hỏi sự phối hợp nhịp nhàng giữa chủ đầu tư và nhà thầu xây dựng.
-          </p>
-          <p>
-            Tại <strong>Gamma Home</strong>, chúng tôi luôn nỗ lực chuẩn hóa quy trình làm việc từ khâu khảo sát thực tế, tư vấn phong thủy chuyên sâu, thiết kế phối cảnh 3D ngoại thất, hồ sơ kỹ thuật chi tiết đến việc thi công trọn gói bàn giao chìa khóa trao tay.
-          </p>
-          <p>
-            Bằng tâm huyết của những kiến trúc sư giàu kinh nghiệm, kết hợp hệ khung kết cấu sắt thép Hòa Phát chính hãng, xi măng Bút Sơn chất lượng cao và quy trình bảo dưỡng bê tông nghiêm ngặt, mỗi công trình mang thương hiệu Gamma Home đều bền bỉ, thách thức thời gian.
-          </p>
+          {article.content ? (
+            <div 
+              className="prose prose-zinc max-w-none text-zinc-700 prose-sm md:prose-base font-light leading-relaxed text-justify"
+              dangerouslySetInnerHTML={{ __html: article.content }} 
+            />
+          ) : (
+            <>
+              <p>
+                Đối với bất kỳ gia đình nào, ngôi nhà luôn là công trình trọng đại nhất cả cuộc đời. Để có được một tổ ấm chỉn chu, vững chãi với chi phí tối ưu, quy trình thiết kế và thi công đòi hỏi sự phối hợp nhịp nhàng giữa chủ đầu tư và nhà thầu xây dựng.
+              </p>
+              <p>
+                Tại <strong>Gamma Home</strong>, chúng tôi luôn nỗ lực chuẩn hóa quy trình làm việc từ khâu khảo sát thực tế, tư vấn phong thủy chuyên sâu, thiết kế phối cảnh 3D ngoại thất, hồ sơ kỹ thuật chi tiết đến việc thi công trọn gói bàn giao chìa khóa trao tay.
+              </p>
+              <p>
+                Bằng tâm huyết của những kiến trúc sư giàu kinh nghiệm, kết hợp hệ khung kết cấu sắt thép Hòa Phát chính hãng, xi măng Bút Sơn chất lượng cao và quy trình bảo dưỡng bê tông nghiêm ngặt, mỗi công trình mang thương hiệu Gamma Home đều bền bỉ, thách thức thời gian.
+              </p>
+            </>
+          )}
           <p className="italic text-zinc-500 mt-4 border-t border-zinc-100 pt-4">
             Bài viết được tổng hợp và biên soạn bởi Ban biên tập Truyền thông Công ty Cổ phần Kiến trúc & Xây dựng GAMMA HOME.
           </p>

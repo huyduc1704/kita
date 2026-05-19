@@ -194,15 +194,24 @@ export default function KnowledgeDetailPage() {
           <p className="font-semibold text-zinc-900 border-l-4 border-[#f39221] pl-4 py-1.5 bg-zinc-50 rounded-r">
             {article.excerpt}
           </p>
-          <p>
-            Trước khi tiến hành xây dựng ngôi nhà mơ ước, việc hiểu rõ các tiêu chuẩn kỹ thuật thi công xây dựng và nghiệm thu vật tư là vô cùng thiết thực. Điều này giúp gia chủ chủ động kiểm soát tiến độ, hạn chế tối đa các chi phí phát sinh vô lý và giám sát nhà thầu thi công hiệu quả.
-          </p>
-          <p>
-            Trong khuôn khổ bài viết này, đội ngũ kỹ sư xây dựng giàu kinh nghiệm của <strong>Gamma Home</strong> xin chia sẻ chi tiết các hạng mục cẩm nang cần ghi nhớ.
-          </p>
-          <p>
-            Bằng việc sử dụng thép Việt Nhật, Hòa Phát chính hãng, xi măng cường độ cao cùng cấp phối bê tông chuẩn kỹ thuật và sự giám sát sát sao của đội ngũ kỹ sư tại hiện trường, mỗi mái nhà do Gamma Home hoàn thiện đều mang lại sự vững tâm tuyệt đối cho gia chủ qua nhiều thế hệ.
-          </p>
+          {(article as any).content ? (
+            <div 
+              className="prose prose-zinc max-w-none text-zinc-700 prose-sm md:prose-base font-light leading-relaxed text-justify"
+              dangerouslySetInnerHTML={{ __html: (article as any).content }} 
+            />
+          ) : (
+            <>
+              <p>
+                Trước khi tiến hành xây dựng ngôi nhà mơ ước, việc hiểu rõ các tiêu chuẩn kỹ thuật thi công xây dựng và nghiệm thu vật tư là vô cùng thiết thực. Điều này giúp gia chủ chủ động kiểm soát tiến độ, hạn chế tối đa các chi phí phát sinh vô lý và giám sát nhà thầu thi công hiệu quả.
+              </p>
+              <p>
+                Trong khuôn khổ bài viết này, đội ngũ kỹ sư xây dựng giàu kinh nghiệm của <strong>Gamma Home</strong> xin chia sẻ chi tiết các hạng mục cẩm nang cần ghi nhớ.
+              </p>
+              <p>
+                Bằng việc sử dụng thép Việt Nhật, Hòa Phát chính hãng, xi măng cường độ cao cùng cấp phối bê tông chuẩn kỹ thuật và sự giám sát sát sao của đội ngũ kỹ sư tại hiện trường, mỗi mái nhà do Gamma Home hoàn thiện đều mang lại sự vững tâm tuyệt đối cho gia chủ qua nhiều thế hệ.
+              </p>
+            </>
+          )}
           <p className="italic text-zinc-500 mt-4 border-t border-zinc-100 pt-4">
             Bài viết được tổng hợp từ cẩm nang kỹ thuật thi công thực tế của Ban Giám sát Kỹ thuật Công ty Cổ phần Kiến trúc & Xây dựng GAMMA HOME.
           </p>

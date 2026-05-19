@@ -11,6 +11,73 @@ export type { Project, Service, NewsItem };
 
 const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_API_URL || 'http://localhost:1337';
 
+export function formatRichText(markdown: string): string {
+  if (!markdown) return '';
+  
+  // 1. Tự động dọn dẹp các đường dẫn bị nhân đôi tên miền (nếu có dữ liệu cũ bị lỗi dạng http://localhost...http://localhost...)
+  let sanitized = markdown.replace(/(https?:\/\/[a-zA-Z0-9.:-]+)+/g, (match) => {
+    const firstUrl = match.match(/https?:\/\/[a-zA-Z0-9.:-]+/);
+    return firstUrl ? firstUrl[0] : match;
+  });
+
+  // 2. Đồng bộ hóa tất cả thành đường dẫn tuyệt đối với STRAPI_URL hiện tại
+  let withAbsoluteUrls = sanitized.replace(/(https?:\/\/[^\/]+)?\/uploads\//g, `${STRAPI_URL}/uploads/`);
+
+  // 3. Chuyển đổi Markdown sang HTML
+  let html = withAbsoluteUrls;
+
+  // - Chuyển đổi Hình ảnh: ![alt](url) trước để khóa ảnh lại
+  html = html.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (match, alt, url) => {
+    // Mã hóa tạm thời dấu gạch dưới trong URL ảnh để tránh bộ lọc Italic chọc vào làm hỏng đường dẫn
+    const encodedUrl = url.trim().replace(/_/g, '%%UNDERSCORE%%');
+    return `<img src="${encodedUrl}" alt="${alt}" class="w-full h-auto object-cover rounded-xl shadow-md my-6 max-h-[500px] block mx-auto" />`;
+  });
+
+  // - Chuyển đổi Đường dẫn: [text](url)
+  html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (match, text, url) => {
+    const encodedUrl = url.trim().replace(/_/g, '%%UNDERSCORE%%');
+    return `<a href="${encodedUrl}" target="_blank" rel="noopener noreferrer" class="text-[#f39221] hover:underline font-semibold transition-colors">${text}</a>`;
+  });
+
+  // - Chuyển đổi Bold: **text** hoặc __text__
+  html = html.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+  html = html.replace(/__([^_]+)__/g, '<strong>$1</strong>');
+
+  // - Chuyên đổi Italic: *text* hoặc _text_ (Chỉ khớp _ khi ở ranh giới từ để tránh dính tên file)
+  html = html.replace(/\*([^*]+)\*/g, '<em>$1</em>');
+  html = html.replace(/\b_([^_]+)_\b/g, '<em>$1</em>');
+
+  // Giải mã lại %%UNDERSCORE%% thành _ cho các URL ảnh và liên kết
+  html = html.replace(/%%UNDERSCORE%%/g, '_');
+
+  // - Chuyển đổi Headings: ###, ##, #
+  html = html.replace(/^### (.*$)/gim, '<h3 class="text-base md:text-lg font-bold text-zinc-950 mt-6 mb-3 font-serif uppercase tracking-wide">$1</h3>');
+  html = html.replace(/^## (.*$)/gim, '<h2 class="text-lg md:text-xl font-bold text-zinc-950 mt-8 mb-4 font-serif uppercase tracking-wide border-b border-zinc-200 pb-2">$1</h2>');
+  html = html.replace(/^# (.*$)/gim, '<h1 class="text-xl md:text-2xl font-bold text-zinc-950 mt-10 mb-4 font-serif uppercase tracking-wide">$1</h1>');
+
+  // - Chuyển đổi Lists: - hoặc * hoặc 1.
+  html = html.replace(/^\s*[*+-]\s+(.*$)/gim, '<li class="ml-5 list-disc text-zinc-700 pl-1 py-1 font-light text-sm md:text-base">$1</li>');
+  html = html.replace(/^\s*\d+\.\s+(.*$)/gim, '<li class="ml-5 list-decimal text-zinc-700 pl-1 py-1 font-light text-sm md:text-base">$1</li>');
+
+  // - Chuyển đổi Paragraphs (Phân tách các khối block bởi double newlines)
+  const blocks = html.split(/\n\n+/);
+  const parsedBlocks = blocks.map(block => {
+    const trimmed = block.trim();
+    if (!trimmed) return '';
+    
+    // Nếu block đã là thẻ HTML tự chứa thì không bao trong thẻ <p> nữa
+    if (trimmed.startsWith('<h') || trimmed.startsWith('<img') || trimmed.startsWith('<li') || trimmed.startsWith('<ul') || trimmed.startsWith('<ol')) {
+      return trimmed;
+    }
+    
+    // Ngược lại thì bọc trong thẻ <p>
+    const textWithBreaks = trimmed.replace(/\n/g, '<br />');
+    return `<p class="mb-4 text-justify font-light leading-relaxed text-zinc-700 text-sm md:text-base">${textWithBreaks}</p>`;
+  });
+
+  return parsedBlocks.join('\n');
+}
+
 /**
  * Hàm gọi API an toàn, nếu lỗi kết nối hoặc không có dữ liệu sẽ tự động trả về giá trị mặc định (Mock Data)
  */
@@ -59,13 +126,13 @@ export async function getProjects(): Promise<Project[]> {
       ? (post.thumbnail.url.startsWith('http') ? post.thumbnail.url : `${STRAPI_URL}${post.thumbnail.url}`)
       : 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80',
     excerpt: post.excerpt || '',
-    description: post.content || '',
-    details: post.details || {
-      client: 'Khách hàng Gamma Home',
-      location: 'Việt Nam',
-      scale: 'Hiện đại',
-      area: 'Liên hệ',
-      year: '2026'
+    description: formatRichText(post.content || ''),
+    details: {
+      client: post.detailsClient || 'Khách hàng Gamma Home',
+      location: post.detailsLocation || 'Việt Nam',
+      scale: post.detailsScale || 'Hiện đại',
+      area: post.detailsArea || 'Liên hệ',
+      year: post.detailsYear || '2026'
     },
     gallery: post.gallery?.map((img: any) =>
       img.url.startsWith('http') ? img.url : `${STRAPI_URL}${img.url}`
@@ -118,7 +185,7 @@ export async function getNews(): Promise<NewsItem[]> {
       : 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=800&q=80',
     date: post.publishedAt ? new Date(post.publishedAt).toLocaleDateString('vi-VN') : '15/05/2026',
     excerpt: post.excerpt || '',
-    content: post.content || ''
+    content: formatRichText(post.content || '')
   }));
 }
 
@@ -152,13 +219,13 @@ export async function getPostBySlug(slug: string): Promise<{
                 ? (post.thumbnail.url.startsWith('http') ? post.thumbnail.url : `${STRAPI_URL}${post.thumbnail.url}`)
                 : 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80',
               excerpt: post.excerpt || '',
-              description: post.content || '',
-              details: post.details || {
-                client: 'Khách hàng Gamma Home',
-                location: 'Việt Nam',
-                scale: 'Hiện đại',
-                area: 'Liên hệ',
-                year: '2026'
+              description: formatRichText(post.content || ''),
+              details: {
+                client: post.detailsClient || 'Khách hàng Gamma Home',
+                location: post.detailsLocation || 'Việt Nam',
+                scale: post.detailsScale || 'Hiện đại',
+                area: post.detailsArea || 'Liên hệ',
+                year: post.detailsYear || '2026'
               },
               gallery: post.gallery?.map((img: any) =>
                 img.url.startsWith('http') ? img.url : `${STRAPI_URL}${img.url}`
@@ -189,7 +256,7 @@ export async function getPostBySlug(slug: string): Promise<{
                 : 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=800&q=80',
               date: post.publishedAt ? new Date(post.publishedAt).toLocaleDateString('vi-VN') : '15/05/2026',
               excerpt: post.excerpt || '',
-              content: post.content || ''
+              content: formatRichText(post.content || '')
             }
           };
         }
