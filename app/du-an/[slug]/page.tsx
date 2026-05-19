@@ -157,22 +157,33 @@ export default function ProjectDetailPage() {
                 Thông số dự án chi tiết
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-3 text-xs md:text-sm text-zinc-700">
-                <div className="flex justify-between border-b border-zinc-200/50 pb-2">
-                  <span className="font-semibold text-zinc-500">Chủ đầu tư:</span>
-                  <span className="font-bold text-zinc-800">{currentProject.details.client}</span>
-                </div>
-                <div className="flex justify-between border-b border-zinc-200/50 pb-2">
-                  <span className="font-semibold text-zinc-500">Địa điểm:</span>
-                  <span className="font-bold text-zinc-800">{currentProject.details.location}</span>
-                </div>
-                <div className="flex justify-between border-b border-zinc-200/50 pb-2">
-                  <span className="font-semibold text-zinc-500">Quy mô:</span>
-                  <span className="font-bold text-zinc-800">{currentProject.details.scale}</span>
-                </div>
-                <div className="flex justify-between border-b border-zinc-200/50 pb-2">
-                  <span className="font-semibold text-zinc-500">Diện tích sàn:</span>
-                  <span className="font-bold text-zinc-800">{currentProject.details.area}</span>
-                </div>
+                {currentProject.customSpecsList && currentProject.customSpecsList.length > 0 ? (
+                  currentProject.customSpecsList.map((spec, index) => (
+                    <div key={index} className="flex justify-between border-b border-zinc-200/50 pb-2">
+                      <span className="font-semibold text-zinc-555">{spec.label}:</span>
+                      <span className="font-bold text-zinc-850">{spec.value}</span>
+                    </div>
+                  ))
+                ) : (
+                  <>
+                    <div className="flex justify-between border-b border-zinc-200/50 pb-2">
+                      <span className="font-semibold text-zinc-500">Chủ đầu tư:</span>
+                      <span className="font-bold text-zinc-800">{currentProject.details.client}</span>
+                    </div>
+                    <div className="flex justify-between border-b border-zinc-200/50 pb-2">
+                      <span className="font-semibold text-zinc-500">Địa điểm:</span>
+                      <span className="font-bold text-zinc-800">{currentProject.details.location}</span>
+                    </div>
+                    <div className="flex justify-between border-b border-zinc-200/50 pb-2">
+                      <span className="font-semibold text-zinc-500">Quy mô:</span>
+                      <span className="font-bold text-zinc-800">{currentProject.details.scale}</span>
+                    </div>
+                    <div className="flex justify-between border-b border-zinc-200/50 pb-2">
+                      <span className="font-semibold text-zinc-500">Diện tích sàn:</span>
+                      <span className="font-bold text-zinc-800">{currentProject.details.area}</span>
+                    </div>
+                  </>
+                )}
               </div>
             </div>
 

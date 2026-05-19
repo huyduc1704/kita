@@ -78,6 +78,24 @@ export function formatRichText(markdown: string): string {
   return parsedBlocks.join('\n');
 }
 
+export function parseCustomSpecs(text: string): { label: string; value: string }[] | undefined {
+  if (!text || !text.trim()) return undefined;
+  const lines = text.split('\n');
+  const list: { label: string; value: string }[] = [];
+  for (const line of lines) {
+    const trimmed = line.trim();
+    if (!trimmed) continue;
+    const colonIndex = trimmed.indexOf(':');
+    if (colonIndex === -1) continue;
+    const label = trimmed.slice(0, colonIndex).trim();
+    const value = trimmed.slice(colonIndex + 1).trim();
+    if (label && value) {
+      list.push({ label, value });
+    }
+  }
+  return list.length > 0 ? list : undefined;
+}
+
 /**
  * Hàm gọi API an toàn, nếu lỗi kết nối hoặc không có dữ liệu sẽ tự động trả về giá trị mặc định (Mock Data)
  */
@@ -136,7 +154,8 @@ export async function getProjects(): Promise<Project[]> {
     },
     gallery: post.gallery?.map((img: any) =>
       img.url.startsWith('http') ? img.url : `${STRAPI_URL}${img.url}`
-    ) || []
+    ) || [],
+    customSpecsList: parseCustomSpecs(post.customSpecifications || '')
   }));
 }
 
@@ -229,7 +248,8 @@ export async function getPostBySlug(slug: string): Promise<{
               },
               gallery: post.gallery?.map((img: any) =>
                 img.url.startsWith('http') ? img.url : `${STRAPI_URL}${img.url}`
-              ) || []
+              ) || [],
+              customSpecsList: parseCustomSpecs(post.customSpecifications || '')
             }
           };
         } else if (categorySlug === 'dich-vu') {

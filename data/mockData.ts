@@ -14,6 +14,7 @@ export interface Project {
     area?: string;
   };
   gallery?: string[];
+  customSpecsList?: { label: string; value: string }[];
 }
 
 export interface Service {
