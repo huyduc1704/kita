@@ -440,3 +440,19 @@ export async function getHeroSlides(): Promise<HeroSlide[]> {
   }));
 }
 
+/**
+ * 7. LẤY DANH MỤC THEO NHÓM (DỰ ÁN, NỘI THẤT...)
+ */
+export async function getCategoriesByGroup(group: string): Promise<{ label: string; href: string }[]> {
+  const url = `${STRAPI_URL}/api/categories?filters[group][$eq]=${group}&sort=createdAt:asc`;
+  
+  const strapiData = await safeFetch<any[] | null>(url, null);
+  if (!strapiData) {
+    return [];
+  }
+  
+  return strapiData.map(cat => ({
+    label: cat.name,
+    href: `/${group}?cat=${cat.slug}`
+  }));
+}

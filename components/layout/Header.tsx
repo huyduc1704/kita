@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, X, ChevronDown, Search } from 'lucide-react';
+import { getCategoriesByGroup } from '@/utils/api';
 
 interface NavItem {
   label: string;
@@ -11,7 +12,7 @@ interface NavItem {
   children?: { label: string; href: string }[];
 }
 
-const NAV_ITEMS: NavItem[] = [
+const DEFAULT_NAV_ITEMS: NavItem[] = [
   { label: 'Trang chủ', href: '/' },
   {
     label: 'Giới thiệu',
@@ -120,10 +121,42 @@ function MobileNavItem({ item }: { item: NavItem }) {
 }
 
 export default function Header() {
+  const [navItems, setNavItems] = useState<NavItem[]>(DEFAULT_NAV_ITEMS);
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const pathname = usePathname();
+
+  useEffect(() => {
+    async function fetchCategories() {
+      try {
+        const [duAnCats, noiThatCats, dichVuCats] = await Promise.all([
+          getCategoriesByGroup('du-an'),
+          getCategoriesByGroup('noi-that'),
+          getCategoriesByGroup('dich-vu'),
+        ]);
+
+        setNavItems(prevItems => {
+          return prevItems.map(item => {
+            if (item.label === 'Dự án' && duAnCats.length > 0) {
+              return { ...item, children: duAnCats };
+            }
+            if (item.label === 'Nội thất' && noiThatCats.length > 0) {
+              return { ...item, children: noiThatCats };
+            }
+            if (item.label === 'Dịch vụ' && dichVuCats.length > 0) {
+              return { ...item, children: dichVuCats };
+            }
+            return item;
+          });
+        });
+      } catch (error) {
+        console.error('Lỗi khi lấy danh mục từ backend', error);
+      }
+    }
+    
+    fetchCategories();
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -168,7 +201,7 @@ export default function Header() {
 
           {/* Desktop Menu */}
           <nav className="hidden lg:flex items-center gap-4 xl:gap-5 font-semibold">
-            {NAV_ITEMS.map((item) => {
+            {navItems.map((item) => {
               const hasChildren = !!item.children;
               const isActive = pathname === item.href || (item.href !== '/' && pathname.startsWith(item.href));
 
@@ -235,7 +268,7 @@ export default function Header() {
         {isOpen && (
           <div className="absolute left-0 top-full w-full lg:hidden bg-white border-t border-b border-zinc-100 shadow-2xl transition-all duration-300 z-50 max-h-[calc(100vh-70px)] overflow-y-auto">
             <div className="container-kita py-4 flex flex-col gap-2">
-              {NAV_ITEMS.map((item) => (
+              {navItems.map((item) => (
                 <MobileNavItem key={item.label} item={item} />
               ))}
               <button
