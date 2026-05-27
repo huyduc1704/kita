@@ -150,7 +150,7 @@ export default function Footer() {
       {/* Full-width Copyright Bar with dark background */}
       <div className="relative z-20 bg-black/90 py-4 border-t border-zinc-800 flex justify-center items-center text-[10px] md:text-xs text-zinc-400 font-light text-center px-4">
         <p className="font-sans">
-          © 2021 Bản quyền thuộc về Gamma Home. Thiết kế và Phát triển bởi <a href="https://vinasoftware.com.vn" target="_blank" rel="noopener noreferrer" className="hover:text-white font-medium transition-colors">Vinasoftware</a>
+          © 2021 Bản quyền thuộc về Gamma Home.
         </p>
       </div>
     </footer>
