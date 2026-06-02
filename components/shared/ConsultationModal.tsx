@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { X, Home, User, Phone, Layers, MapPin, Mail, CheckCircle } from 'lucide-react';
+import { submitConsultationLead } from '@/utils/api';
 
 export default function ConsultationModal() {
   const [isOpen, setIsOpen] = useState(false);
@@ -36,18 +37,38 @@ export default function ConsultationModal() {
     setYeuCau('');
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [submitting, setSubmitting] = useState(false);
+
+  const REQUIREMENT_MAP: Record<string, 'build' | 'design' | 'interior' | 'consult'> = {
+    'Xây nhà trọn gói': 'build',
+    'Thiết kế kiến trúc': 'design',
+    'Thiết kế & thi công nội thất': 'interior',
+    'Thi công phần thô': 'consult',
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!soDienThoai || !nhuCau) {
       alert('Vui lòng điền các thông tin bắt buộc (*)');
       return;
     }
-    
-    // Simulate successful form submission
-    setIsSubmitted(true);
-    setTimeout(() => {
-      handleClose();
-    }, 2500);
+    setSubmitting(true);
+    try {
+      await submitConsultationLead({
+        name: hoTen || 'Khách hàng',
+        phone: soDienThoai,
+        requirement: REQUIREMENT_MAP[nhuCau],
+        area: dienTich || undefined,
+        province: tinhThanh || undefined,
+        detailNote: yeuCau || undefined,
+      });
+      setIsSubmitted(true);
+      setTimeout(() => handleClose(), 2500);
+    } catch {
+      alert('Có lỗi xảy ra, vui lòng thử lại hoặc gọi hotline trực tiếp.');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   if (!isOpen) return null;
@@ -175,9 +196,10 @@ export default function ConsultationModal() {
             {/* Gold Gradient Submit Button */}
             <button
               type="submit"
-              className="w-full h-11 rounded-lg bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 hover:from-amber-500 hover:via-amber-600 hover:to-amber-700 text-white font-bold tracking-wider uppercase text-sm md:text-base transition-all duration-300 shadow-md hover:shadow-lg active:scale-95 cursor-pointer flex items-center justify-center border border-amber-300/35"
+              disabled={submitting}
+              className="w-full h-11 rounded-lg bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 hover:from-amber-500 hover:via-amber-600 hover:to-amber-700 text-white font-bold tracking-wider uppercase text-sm md:text-base transition-all duration-300 shadow-md hover:shadow-lg active:scale-95 cursor-pointer flex items-center justify-center border border-amber-300/35 disabled:opacity-70 disabled:cursor-not-allowed"
             >
-              NHẬN TƯ VẤN
+              {submitting ? 'ĐANG GỬI...' : 'NHẬN TƯ VẤN'}
             </button>
 
           </form>
