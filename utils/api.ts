@@ -192,6 +192,18 @@ export async function getPostBySlug(slug: string): Promise<{
 
 // ─── 5. System Settings ────────────────────────────────────────────────────
 
+export interface SocialButton {
+  id: number;
+  type: 'phone' | 'zalo' | 'messenger' | 'facebook' | 'tiktok' | 'youtube' | 'custom';
+  label: string;
+  value: string;
+  iconUrl?: string | null;
+  position: 'floating' | 'footer' | 'both';
+  order: number;
+  isActive: boolean;
+  resolvedLink: string;
+}
+
 export interface SystemSetting {
   hotline: string;
   zaloUrl?: string;
@@ -210,6 +222,7 @@ export interface SystemSetting {
   feedbackImage?: string;
   faviconUrl?: string;
   logoUrl?: string;
+  socialButtons?: SocialButton[];
 }
 
 const SETTING_DEFAULT: SystemSetting = {
@@ -254,6 +267,7 @@ export async function getSystemSetting(): Promise<SystemSetting> {
     feedbackImage: data.feedbackImageUrl || undefined,
     faviconUrl:    data.faviconUrl       || undefined,
     logoUrl:       data.logoUrl          || undefined,
+    socialButtons: data.resolvedSocialButtons?.length ? data.resolvedSocialButtons : undefined,
   };
 }
 
