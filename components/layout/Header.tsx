@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, X, ChevronDown, Search } from 'lucide-react';
-import { getCategoriesByGroup } from '@/utils/api';
+import { getCategoriesByGroup, getSystemSetting } from '@/utils/api';
 
 interface NavItem {
   label: string;
@@ -122,6 +122,7 @@ function MobileNavItem({ item }: { item: NavItem }) {
 
 export default function Header() {
   const [navItems, setNavItems] = useState<NavItem[]>(DEFAULT_NAV_ITEMS);
+  const [logoUrl, setLogoUrl] = useState('/kita/gamma-home.jpg');
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
@@ -156,6 +157,7 @@ export default function Header() {
     }
     
     fetchCategories();
+    getSystemSetting().then(s => { if (s.logoUrl) setLogoUrl(s.logoUrl); }).catch(() => {});
   }, []);
 
   useEffect(() => {
@@ -193,7 +195,7 @@ export default function Header() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
             <img
-              src="/kita/gamma-home.jpg"
+              src={logoUrl}
               alt="Gamma Home Logo"
               className="h-15 w-auto object-cover"
             />
