@@ -5,6 +5,7 @@ import Header from "../components/layout/Header";
 import Footer from "../components/layout/Footer";
 import FloatingContact from "../components/shared/FloatingContact";
 import ConsultationModal from "../components/shared/ConsultationModal";
+import { getSystemSetting } from "../utils/api";
 
 const baiJamjuree = Bai_Jamjuree({
   variable: "--font-bai-jamjuree",
@@ -12,10 +13,16 @@ const baiJamjuree = Bai_Jamjuree({
   weight: ["200", "300", "400", "500", "600", "700"],
 });
 
-export const metadata: Metadata = {
-  title: "Gamma Home | Thiết kế và Thi công trọn gói nhà phố, biệt thự đẹp",
-  description: "Gamma Home chuyên thiết kế kiến trúc, thiết kế & thi công nội thất, xây nhà trọn gói uy tín hàng đầu Việt Nam. Tận tâm trong từng viên gạch - Vững trọn niềm tin.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = await getSystemSetting();
+  return {
+    title: `${settings.companyName} | Thiết kế và Thi công trọn gói nhà phố, biệt thự đẹp`,
+    description: `${settings.slogan}`,
+    icons: {
+      icon: settings.faviconUrl || '/favicon.ico',
+    },
+  };
+}
 
 export default function RootLayout({
   children,

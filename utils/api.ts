@@ -208,6 +208,8 @@ export interface SystemSetting {
   addressSouth?: string;
   email?: string;
   feedbackImage?: string;
+  faviconUrl?: string;
+  logoUrl?: string;
 }
 
 const SETTING_DEFAULT: SystemSetting = {
@@ -250,6 +252,8 @@ export async function getSystemSetting(): Promise<SystemSetting> {
     tiktokUrl:    findLink('tiktok')    || SETTING_DEFAULT.tiktokUrl,
     youtubeUrl:   findLink('youtube')   || SETTING_DEFAULT.youtubeUrl,
     feedbackImage: data.feedbackImageUrl || undefined,
+    faviconUrl:    data.faviconUrl       || undefined,
+    logoUrl:       data.logoUrl          || undefined,
   };
 }
 
