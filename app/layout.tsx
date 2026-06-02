@@ -7,7 +7,7 @@ import FloatingContact from "../components/shared/FloatingContact";
 import ConsultationModal from "../components/shared/ConsultationModal";
 import { getSystemSetting } from "../utils/api";
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 300; // cache 5 phút, tự động revalidate
 
 const baiJamjuree = Bai_Jamjuree({
   variable: "--font-bai-jamjuree",
