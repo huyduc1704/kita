@@ -7,6 +7,8 @@ import FloatingContact from "../components/shared/FloatingContact";
 import ConsultationModal from "../components/shared/ConsultationModal";
 import { getSystemSetting } from "../utils/api";
 
+export const dynamic = 'force-dynamic';
+
 const baiJamjuree = Bai_Jamjuree({
   variable: "--font-bai-jamjuree",
   subsets: ["vietnamese", "latin"],
