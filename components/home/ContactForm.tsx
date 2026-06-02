@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { Home, User, Phone, Layers, MapPin, Mail, CheckCircle } from 'lucide-react';
-import { getSystemSetting } from '../../utils/api';
+import { getSystemSetting, submitConsultationLead } from '../../utils/api';
 
 export default function ContactForm() {
   const [name, setName] = useState('');
@@ -23,24 +23,34 @@ export default function ContactForm() {
     });
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const REQUIREMENT_MAP: Record<string, 'build' | 'design' | 'interior' | 'consult'> = {
+    'Xây nhà trọn gói': 'build',
+    'Thiết kế kiến trúc': 'design',
+    'Thiết kế nội thất': 'interior',
+    'Thi công phần thô': 'consult',
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!name || !phone) return;
-
     setIsLoading(true);
-    // Giả lập gửi dữ liệu dự toán
-    setTimeout(() => {
-      setIsLoading(false);
+    try {
+      await submitConsultationLead({
+        name,
+        phone,
+        requirement: REQUIREMENT_MAP[need],
+        area: areaAndFloors || undefined,
+        province: province || undefined,
+        detailNote: message || undefined,
+      });
       setIsSubmitted(true);
-      setName('');
-      setPhone('');
-      setAreaAndFloors('');
-      setProvince('');
-      setMessage('');
-
-      // Tự động tắt thông báo thành công sau 5 giây
+      setName(''); setPhone(''); setAreaAndFloors(''); setProvince(''); setMessage('');
       setTimeout(() => setIsSubmitted(false), 5000);
-    }, 1500);
+    } catch {
+      alert('Có lỗi xảy ra, vui lòng thử lại hoặc gọi hotline trực tiếp.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (

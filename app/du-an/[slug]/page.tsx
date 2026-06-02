@@ -3,7 +3,7 @@
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
-import { getProjects, getPostBySlug, getNews, Project, NewsItem } from '../../../utils/api';
+import { getProjects, getPostBySlug, getNews, submitConsultationLead, Project, NewsItem } from '../../../utils/api';
 import { Calendar, User, Eye, ArrowLeft, Home, Phone, Layers, MapPin, Mail, CheckCircle } from 'lucide-react';
 
 export default function ProjectDetailPage() {
@@ -45,25 +45,37 @@ export default function ProjectDetailPage() {
     getProjects().then(setAllProjects);
   }, [slug]);
 
-  const handleFormSubmit = (e: React.FormEvent) => {
+  const REQUIREMENT_MAP: Record<string, 'build' | 'design' | 'interior' | 'consult'> = {
+    'Xây nhà trọn gói': 'build',
+    'Thiết kế kiến trúc': 'design',
+    'Thiết kế & thi công nội thất': 'interior',
+    'Thi công phần thô': 'consult',
+  };
+
+  const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!soDienThoai || !nhuCau) {
       alert('Vui lòng điền các thông tin bắt buộc (*)');
       return;
     }
-    
-    // Save lead to Strapi or backend if needed, or simulate success
-    setIsSubmitted(true);
-    setTimeout(() => {
-      setIsSubmitted(false);
-      // Reset form
-      setNhuCau('');
-      setHoTen('');
-      setSoDienThoai('');
-      setDienTich('');
-      setTinhThanh('');
-      setYeuCau('');
-    }, 4000);
+    try {
+      await submitConsultationLead({
+        name: hoTen || 'Khách hàng',
+        phone: soDienThoai,
+        requirement: REQUIREMENT_MAP[nhuCau],
+        area: dienTich || undefined,
+        province: tinhThanh || undefined,
+        detailNote: yeuCau || undefined,
+      });
+      setIsSubmitted(true);
+      setTimeout(() => {
+        setIsSubmitted(false);
+        setNhuCau(''); setHoTen(''); setSoDienThoai('');
+        setDienTich(''); setTinhThanh(''); setYeuCau('');
+      }, 4000);
+    } catch {
+      alert('Có lỗi xảy ra, vui lòng thử lại hoặc gọi hotline trực tiếp.');
+    }
   };
 
   if (loading) {
