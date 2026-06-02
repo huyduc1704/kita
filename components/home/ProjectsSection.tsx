@@ -1,8 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { MOCK_PROJECTS } from '../../data/mockData';
+import { getProjects, Project } from '../../utils/api';
 import { Eye } from 'lucide-react';
 
 type MainTab = 'kien-truc' | 'noi-that';
@@ -11,13 +11,18 @@ type SubTab = 'tat-ca' | 'nha-pho' | 'mai-nhat' | 'biet-thu';
 export default function ProjectsSection() {
   const [mainTab, setMainTab] = useState<MainTab>('kien-truc');
   const [subTab, setSubTab] = useState<SubTab>('tat-ca');
+  const [projects, setProjects] = useState<Project[]>([]);
+
+  useEffect(() => {
+    getProjects().then(setProjects).catch(() => {});
+  }, []);
 
   // Lọc dự án theo tab chính (Kiến trúc vs Nội thất)
-  const mainFiltered = MOCK_PROJECTS.filter((proj) => {
+  const mainFiltered = projects.filter((proj) => {
     if (mainTab === 'noi-that') {
       return proj.category === 'noi-that';
     } else {
-      return proj.category !== 'noi-that'; // Các dự án kiến trúc khác
+      return proj.category !== 'noi-that';
     }
   });
 
