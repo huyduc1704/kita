@@ -130,7 +130,7 @@ export default function NewsDetailPage() {
           </p>
           {article.content ? (
             <div 
-              className="prose prose-zinc max-w-none text-zinc-700 prose-sm md:prose-base font-light leading-relaxed text-justify"
+              className="rich-content"
               dangerouslySetInnerHTML={{ __html: article.content }} 
             />
           ) : (

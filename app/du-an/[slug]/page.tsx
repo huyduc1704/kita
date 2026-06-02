@@ -196,7 +196,7 @@ export default function ProjectDetailPage() {
               {/* Dynamic Rich Text Content from Strapi */}
               {currentProject.description ? (
                 <div 
-                  className="prose prose-zinc max-w-none text-zinc-700 prose-sm md:prose-base font-light leading-relaxed text-justify"
+                  className="rich-content"
                   dangerouslySetInnerHTML={{ __html: currentProject.description }} 
                 />
               ) : (
