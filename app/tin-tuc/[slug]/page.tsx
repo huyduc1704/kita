@@ -130,7 +130,7 @@ export default function NewsDetailPage() {
           </p>
           {article.content ? (
             <div 
-              className="rich-content"
+              className="rich-content ck-content"
               dangerouslySetInnerHTML={{ __html: article.content }} 
             />
           ) : (

@@ -187,7 +187,7 @@ export default function InteriorDetailPage() {
               {/* Dynamic Rich Text Content from Strapi */}
               {currentProject.description ? (
                 <div 
-                  className="rich-content"
+                  className="rich-content ck-content"
                   dangerouslySetInnerHTML={{ __html: currentProject.description }} 
                 />
               ) : (

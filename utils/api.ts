@@ -18,11 +18,13 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL || '/api';
 // Content từ Quill là HTML (bắt đầu bằng tag), content cũ là Markdown
 function renderContent(raw: string): string {
   if (!raw) return '';
-  if (raw.trimStart().startsWith('<')) {
-    // Quill đôi khi encode space thành &nbsp; khiến text không xuống dòng
-    return raw.replace(/&nbsp;/g, ' ');
+  // Thay thế toàn bộ &nbsp; và ký tự Non-breaking space (\u00A0) thành dấu cách thường để chữ có thể tự động xuống dòng
+  let cleanRaw = raw.replace(/&nbsp;|\u00A0/g, ' ');
+  
+  if (cleanRaw.trimStart().startsWith('<')) {
+    return cleanRaw;
   }
-  return formatRichText(raw);
+  return formatRichText(cleanRaw);
 }
 
 export function formatRichText(markdown: string): string {
@@ -82,6 +84,13 @@ async function apiFetch<T>(path: string, fallback: T): Promise<T> {
 
 // ─── Mappers ───────────────────────────────────────────────────────────────
 
+// ─── Mappers ───────────────────────────────────────────────────────────────
+
+function cleanExcerpt(text: string): string {
+  if (!text) return '';
+  return text.replace(/&nbsp;|\u00A0/g, ' ');
+}
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function mapPost(post: any): Project {
   const meta = (post.metadata as Record<string, string>) || {};
@@ -91,7 +100,7 @@ function mapPost(post: any): Project {
     slug: post.slug,
     category: (post.category?.slug || 'nha-pho') as Project['category'],
     image: post.thumbnailUrl || 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80',
-    excerpt: post.excerpt || '',
+    excerpt: cleanExcerpt(post.excerpt),
     description: renderContent(post.content || ''),
     details: {
       client:   meta.client   || 'Khách hàng Gamma Home',
@@ -112,7 +121,7 @@ function mapService(post: any): Service {
     id: String(post.id),
     title: post.title,
     slug: post.slug,
-    description: post.excerpt || '',
+    description: cleanExcerpt(post.excerpt),
     icon: 'Home',
     highlight: undefined,
     features: meta.features || [],
@@ -128,7 +137,7 @@ function mapNews(post: any): NewsItem {
     category: (post.category?.slug || 'cam-nang') as NewsItem['category'],
     image: post.thumbnailUrl || 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=800&q=80',
     date: post.publishedAt ? new Date(post.publishedAt).toLocaleDateString('vi-VN') : new Date().toLocaleDateString('vi-VN'),
-    excerpt: post.excerpt || '',
+    excerpt: cleanExcerpt(post.excerpt),
     content: renderContent(post.content || ''),
   };
 }

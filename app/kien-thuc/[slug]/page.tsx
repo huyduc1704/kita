@@ -196,7 +196,7 @@ export default function KnowledgeDetailPage() {
           </p>
           {(article as any).content ? (
             <div 
-              className="rich-content"
+              className="rich-content ck-content"
               dangerouslySetInnerHTML={{ __html: (article as any).content }} 
             />
           ) : (
