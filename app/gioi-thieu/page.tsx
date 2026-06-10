@@ -127,7 +127,7 @@ export default function AboutPage() {
               </h3>
               <div className="text-zinc-650 text-xs md:text-sm font-light leading-relaxed text-justify [&>p]:mb-4 last:[&>p]:mb-0">
                 {visionPost ? (
-                  <div dangerouslySetInnerHTML={{ __html: visionPost.content }} />
+                  <div dangerouslySetInnerHTML={{ __html: visionPost.content || '' }} />
                 ) : (
                   <p>GAMMA HOME hướng tới trở thành doanh nghiệp hàng đầu Việt Nam trong lĩnh vực thiết kế và thi công nhà ở, đồng thời từng bước mở rộng hoạt động ra thị trường quốc tế. Chúng tôi định hướng phát triển hệ thống chi nhánh phủ khắp các tỉnh thành, đảm bảo phục vụ khách hàng một cách nhanh chóng, chuyên nghiệp nhất. Và đặc biệt bước tiến chiến lược tiếp theo của chúng tôi đó là hình thành nhà máy sản xuất vật tư xây dựng, chủ động nguồn cung, kiểm soát chất lượng, tối ưu chi phí cho khách hàng.</p>
                 )}
@@ -144,7 +144,7 @@ export default function AboutPage() {
               </h3>
               <div className="text-zinc-650 text-xs md:text-sm font-light leading-relaxed text-justify [&>p]:mb-4 last:[&>p]:mb-0">
                 {missionPost ? (
-                  <div dangerouslySetInnerHTML={{ __html: missionPost.content }} />
+                  <div dangerouslySetInnerHTML={{ __html: missionPost.content || '' }} />
                 ) : (
                   <p>Mang trong mình sứ mệnh nâng tầm chất lượng sống của cộng đồng thông qua những giải pháp xây dựng toàn diện, hiện đại và bền vững. Chúng tôi không chỉ làm nên những ngôi nhà mà còn xây dựng tổ ấm hạnh phúc, nơi khởi nguồn của yêu thương, gắn kết và thịnh vượng. Bằng tâm huyết, trí tuệ và trách nhiệm xã hội, GAMMA HOME mong muốn được phục vụ hàng triệu người dân Việt Nam, góp phần kiến thiết diện mạo kiến trúc bản địa và đóng góp vào sự phát triển hưng thịnh của đất nước.</p>
                 )}
