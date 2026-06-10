@@ -37,7 +37,8 @@ export default function AboutDetailPage() {
     image: 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=800&q=80',
     excerpt: 'Bài viết không tồn tại hoặc đã bị xóa.',
     content: '',
-    slug: ''
+    slug: '',
+    views: 0
   };
   const relatedArticles = aboutPosts.filter((news) => news.slug !== slug).slice(0, 3);
 
