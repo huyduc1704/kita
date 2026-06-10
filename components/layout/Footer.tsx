@@ -16,13 +16,18 @@ export default function Footer() {
     window.dispatchEvent(new CustomEvent('open-consultation-modal'));
   };
 
-  const addressNorth = setting?.addressNorth || 'G29-30 - Khu đấu giá Ngô Thì Nhậm - Hà Cầu - Hà Đông - TP Hà Nội';
-  const addressSouth = setting?.addressSouth || 'Đường T2-41 Khu Biệt Thự Manhattan - Vinhomes Grand Park - P.Long Bình - TP.Thủ Đức - Hồ Chí Minh';
+  const addressNorth = setting?.addressNorth;
+  const addressSouth = setting?.addressSouth;
   const hotline = setting?.hotline || '0827.972.555';
   const email = setting?.email || 'Nhadepgamma@gmail.com';
   const facebookUrl = setting?.facebookUrl || setting?.facebookPage || 'https://www.facebook.com/profile.php?id=100076260787549';
   const tiktokUrl = setting?.tiktokUrl || 'https://www.tiktok.com/@nhadepkita1';
   const youtubeUrl = setting?.youtubeUrl || 'https://www.youtube.com/@nhadepkita';
+
+  const footerDescription = setting?.footerDescription || 'GAMMA HOME là đơn vị thiết kế và thi công nhà trọn gói được nhiều khách tin tưởng lựa chọn, với hàng trăm công trình chất lượng đã được hoàn thiện, góp phần mang đến không gian sống chỉn chu và ấm áp cho các gia đình Việt.';
+  const footerCopyright = setting?.footerCopyright || '© 2021 Bản quyền thuộc về Gamma Home.';
+
+  const fanpageUrlToUse = setting?.footerFanpageUrl || facebookUrl;
 
   return (
     <footer
@@ -33,8 +38,8 @@ export default function Footer() {
       <div className="absolute inset-0 bg-black/75 z-10" />
 
       <div className="container-kita relative z-20 mb-12">
-        {/* 3 Column Grid inside the 1280px container */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 max-w-6xl mx-auto px-4 lg:px-0">
+        {/* 3 Column Grid inside the container */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 w-full px-4 lg:px-0">
 
           {/* Column 1: Logo & Introduction */}
           <div className="flex flex-col items-start gap-5">
@@ -48,8 +53,8 @@ export default function Footer() {
             </Link>
 
             {/* Paragraph Text */}
-            <p className="text-xs md:text-sm text-zinc-300 leading-relaxed font-light font-sans text-justify">
-              <strong>GAMMA HOME</strong> là đơn vị thiết kế và thi công nhà trọn gói được nhiều khách tin tưởng lựa chọn, với hàng trăm công trình chất lượng đã được hoàn thiện, góp phần mang đến không gian sống chỉn chu và ấm áp cho các gia đình Việt.
+            <p className="text-xs md:text-sm text-zinc-300 leading-relaxed font-light font-sans text-justify whitespace-pre-line">
+              {footerDescription}
             </p>
 
             {/* Request Consultation Button */}
@@ -70,12 +75,16 @@ export default function Footer() {
 
             {/* Contact Information List */}
             <div className="flex flex-col gap-3.5 text-xs md:text-sm font-light font-sans leading-relaxed">
-              <p>
-                <span className="text-[#f39221] font-bold">Miền Bắc:</span> {addressNorth}
-              </p>
-              <p>
-                <span className="text-[#f39221] font-bold">Miền Nam:</span> {addressSouth}
-              </p>
+              {addressNorth && (
+                <p>
+                  <span className="text-[#f39221] font-bold">Miền Bắc:</span> {addressNorth}
+                </p>
+              )}
+              {addressSouth && (
+                <p>
+                  <span className="text-[#f39221] font-bold">Miền Nam:</span> {addressSouth}
+                </p>
+              )}
               <p>
                 <span className="text-[#f39221] font-bold">Hotline:</span> {hotline}
               </p>
@@ -129,9 +138,9 @@ export default function Footer() {
 
           {/* Column 3: Live Facebook Page Widget */}
           <div className="flex flex-col items-center lg:items-end justify-start">
-            <div className="w-full max-w-[340px] bg-white rounded-lg overflow-hidden p-1 shadow-lg border border-zinc-200">
+            <div className="w-full max-w-[400px] bg-white rounded-lg overflow-hidden p-1 shadow-lg border border-zinc-200">
               <iframe
-                src={`https://www.facebook.com/plugins/page.php?href=${encodeURIComponent(facebookUrl)}&tabs=timeline&width=340&height=310&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId`}
+                src={`https://www.facebook.com/plugins/page.php?href=${encodeURIComponent(fanpageUrlToUse)}&tabs=timeline&width=400&height=310&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId`}
                 width="100%"
                 height="310"
                 style={{ border: 'none', overflow: 'hidden' }}
@@ -150,7 +159,7 @@ export default function Footer() {
       {/* Full-width Copyright Bar with dark background */}
       <div className="relative z-20 bg-black/90 py-4 border-t border-zinc-800 flex justify-center items-center text-[10px] md:text-xs text-zinc-400 font-light text-center px-4">
         <p className="font-sans">
-          © 2021 Bản quyền thuộc về Gamma Home.
+          {footerCopyright}
         </p>
       </div>
     </footer>

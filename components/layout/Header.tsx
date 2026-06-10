@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, X, ChevronDown, Search } from 'lucide-react';
-import { getCategoriesByGroup, getSystemSetting } from '@/utils/api';
+import { getCategoriesByGroup, getSystemSetting, getAboutPosts } from '@/utils/api';
 
 interface NavItem {
   label: string;
@@ -131,14 +131,19 @@ export default function Header() {
   useEffect(() => {
     async function fetchCategories() {
       try {
-        const [duAnCats, noiThatCats, dichVuCats] = await Promise.all([
+        const [duAnCats, noiThatCats, dichVuCats, aboutPosts] = await Promise.all([
           getCategoriesByGroup('du-an'),
           getCategoriesByGroup('noi-that'),
           getCategoriesByGroup('dich-vu'),
+          getAboutPosts(),
         ]);
 
         setNavItems(prevItems => {
           return prevItems.map(item => {
+            if (item.label === 'Giới thiệu' && aboutPosts.length > 0) {
+              const children = aboutPosts.map(p => ({ label: p.title, href: `/gioi-thieu/${p.slug}` }));
+              return { ...item, children: [{ label: 'Giới thiệu chung', href: '/gioi-thieu' }, ...children] };
+            }
             if (item.label === 'Dự án' && duAnCats.length > 0) {
               return { ...item, children: duAnCats };
             }

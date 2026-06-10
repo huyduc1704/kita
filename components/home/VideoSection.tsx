@@ -1,7 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Play, X } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 interface VideoFeedback {
   id: string;
@@ -39,8 +40,26 @@ const VIDEOS: VideoFeedback[] = [
   }
 ];
 
-export default function VideoSection() {
+export default function VideoSection({ config }: { config?: any }) {
   const [selectedYoutubeId, setSelectedYoutubeId] = useState<string | null>(null);
+  const [currentPage, setCurrentPage] = useState(0);
+
+  const videosToRender = config?.videos?.length ? config.videos : VIDEOS;
+  const itemsPerPage = 3;
+  const totalPages = Math.ceil(videosToRender.length / itemsPerPage);
+  
+  const currentVideos = videosToRender.slice(
+    currentPage * itemsPerPage,
+    (currentPage + 1) * itemsPerPage
+  );
+
+  useEffect(() => {
+    if (totalPages <= 1) return;
+    const interval = setInterval(() => {
+      setCurrentPage((prev) => (prev + 1) % totalPages);
+    }, 5000); // Tự động trượt sau mỗi 5 giây
+    return () => clearInterval(interval);
+  }, [totalPages]);
 
   return (
     <section className="bg-white" id="videos">
@@ -49,7 +68,7 @@ export default function VideoSection() {
         {/* Section Header */}
         <div className="text-center max-w-4xl mx-auto mb-14 flex flex-col items-center gap-2">
           <h2 className="text-2xl md:text-3xl font-bold font-serif text-secondary uppercase tracking-wider whitespace-nowrap">
-            KHÁCH HÀNG NÓI GÌ VỀ GAMMA HOME
+            {config?.title || 'KHÁCH HÀNG NÓI GÌ VỀ GAMMA HOME'}
           </h2>
           <img
             src="/kita/Title.png"
@@ -58,17 +77,25 @@ export default function VideoSection() {
           />
         </div>
 
-        {/* 3 Column Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto px-4">
-          {VIDEOS.map((vid) => (
-            <div
-              key={vid.id}
+        {/* 3 Column Grid with Slide Animation */}
+        <div className="max-w-6xl mx-auto px-4 overflow-hidden relative">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentPage}
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -50 }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
+              className="grid grid-cols-1 md:grid-cols-3 gap-8"
+            >
+              {currentVideos.map((vid: any, index: number) => (
+                <div
+                  key={vid.id || index}
               onClick={() => setSelectedYoutubeId(vid.youtubeId)}
               className="relative group aspect-video rounded-xl overflow-hidden bg-black shadow-lg cursor-pointer hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-zinc-200"
             >
-              {/* Thumbnail Image */}
               <img
-                src={vid.thumbnail}
+                src={vid.thumbnail || `https://img.youtube.com/vi/${vid.youtubeId}/hqdefault.jpg`}
                 alt={vid.title}
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-90"
               />
@@ -80,14 +107,18 @@ export default function VideoSection() {
               <div className="absolute top-3 left-3 right-3 flex items-start gap-2.5 z-20 text-white drop-shadow-[0_1px_4px_rgba(0,0,0,0.8)] pointer-events-none">
                 {/* Simulated Logo Avatar */}
                 <div className="w-9 h-9 rounded-full bg-zinc-900 border border-white/20 flex items-center justify-center shrink-0 overflow-hidden">
-                  <span className="text-[10px] font-bold text-primary-light">GAMMA</span>
+                  {vid.avatar || config?.defaultAvatar ? (
+                    <img src={vid.avatar || config?.defaultAvatar} alt="avatar" className="w-full h-full object-cover" />
+                  ) : (
+                    <span className="text-[10px] font-bold text-primary-light">GAMMA</span>
+                  )}
                 </div>
                 <div className="flex flex-col gap-0.5 mt-0.5">
                   <h4 className="font-sans font-semibold text-xs md:text-sm line-clamp-1 leading-snug">
                     {vid.title}
                   </h4>
                   <span className="text-[9px] text-zinc-300 font-light uppercase tracking-wider">
-                    {vid.channelTitle}
+                    {vid.channelTitle || config?.defaultChannelTitle || 'NHA DEP GAMMA'}
                   </span>
                 </div>
               </div>
@@ -106,14 +137,26 @@ export default function VideoSection() {
                 <span className="font-bold text-[#ff0000]">YouTube</span>
               </div>
             </div>
-          ))}
+              ))}
+            </motion.div>
+          </AnimatePresence>
         </div>
 
-        {/* Decorative Pagination Dots */}
-        <div className="flex justify-center gap-2 mt-8">
-          <span className="w-2.5 h-2.5 rounded-full bg-zinc-700" />
-          <span className="w-2.5 h-2.5 rounded-full bg-zinc-300" />
-        </div>
+        {/* Pagination Dots */}
+        {totalPages > 1 && (
+          <div className="flex justify-center gap-2 mt-8">
+            {Array.from({ length: totalPages }).map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => setCurrentPage(idx)}
+                className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
+                  currentPage === idx ? 'bg-zinc-700 scale-125' : 'bg-zinc-300 hover:bg-zinc-400'
+                }`}
+                aria-label={`Go to slide ${idx + 1}`}
+              />
+            ))}
+          </div>
+        )}
 
         {/* Orange "XEM THÊM >" Button */}
         <div className="mt-10 text-center">

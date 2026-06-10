@@ -37,11 +37,12 @@ const STRENGTHS: Strength[] = [
   },
 ];
 
-export default function WhyChooseUs() {
+export default function WhyChooseUs({ config }: { config?: any }) {
+  const items = config?.items?.length ? config.items : STRENGTHS;
   return (
     <section
       className="relative py-24 bg-cover bg-center overflow-hidden bg-zinc-950"
-      style={{ backgroundImage: "url('/kita/Kita-Home-7.webp')" }}
+      style={{ backgroundImage: `url('${config?.backgroundUrl || '/kita/Kita-Home-7.webp'}')` }}
       id="why-us"
     >
       {/* Dark Overlay */}
@@ -52,7 +53,7 @@ export default function WhyChooseUs() {
         {/* Section Header */}
         <div className="flex flex-col items-center gap-2 mb-20">
           <h2 className="text-2xl md:text-3xl font-bold tracking-wider font-serif text-white uppercase text-center leading-tight">
-            TẠI SAO CHỌN GAMMA HOME
+            {config?.title || 'TẠI SAO CHỌN GAMMA HOME'}
           </h2>
           <img
             src="/kita/Title.png"
@@ -63,7 +64,7 @@ export default function WhyChooseUs() {
 
         {/* Strengths Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-16 max-w-6xl mx-auto">
-          {STRENGTHS.map((item, index) => {
+          {items.map((item: any, index: number) => {
             return (
               <div
                 key={index}

@@ -11,7 +11,9 @@ export type { Project, Service, NewsItem };
 
 // ─── Base URL ──────────────────────────────────────────────────────────────
 // Dùng proxy /api/* → kita-be (4000) thay vì gọi thẳng Strapi
-const API_URL = process.env.NEXT_PUBLIC_API_URL || '/api';
+const API_URL = typeof window === 'undefined'
+  ? (process.env.BACKEND_API_URL || 'http://localhost:4000/api')
+  : '/api';
 
 // ─── Helpers ───────────────────────────────────────────────────────────────
 
@@ -20,7 +22,7 @@ function renderContent(raw: string): string {
   if (!raw) return '';
   // Thay thế toàn bộ &nbsp; và ký tự Non-breaking space (\u00A0) thành dấu cách thường để chữ có thể tự động xuống dòng
   let cleanRaw = raw.replace(/&nbsp;|\u00A0/g, ' ');
-  
+
   if (cleanRaw.trimStart().startsWith('<')) {
     return cleanRaw;
   }
@@ -103,11 +105,11 @@ function mapPost(post: any): Project {
     excerpt: cleanExcerpt(post.excerpt),
     description: renderContent(post.content || ''),
     details: {
-      client:   meta.client   || 'Khách hàng Gamma Home',
+      client: meta.client || 'Khách hàng Gamma Home',
       location: meta.location || 'Việt Nam',
-      scale:    meta.scale    || 'Hiện đại',
-      area:     meta.area     || 'Liên hệ',
-      year:     meta.year     || String(new Date().getFullYear()),
+      scale: meta.scale || 'Hiện đại',
+      area: meta.area || 'Liên hệ',
+      year: meta.year || String(new Date().getFullYear()),
     },
     gallery: post.gallery || [],
     customSpecsList: undefined,
@@ -172,6 +174,16 @@ export async function getNews(): Promise<NewsItem[]> {
   return data.items.map(mapNews);
 }
 
+// ─── 3.1. Giới thiệu (About) ────────────────────────────────────────────────
+
+export async function getAboutPosts(): Promise<NewsItem[]> {
+  const data = await apiFetch<{ items: unknown[] } | null>(
+    '/posts?type=about&active=true&limit=20', null
+  );
+  if (!data?.items?.length) return [];
+  return data.items.map(mapNews);
+}
+
 // ─── 4. Chi tiết bài viết theo slug ───────────────────────────────────────
 
 export async function getPostBySlug(slug: string): Promise<{
@@ -231,7 +243,11 @@ export interface SystemSetting {
   feedbackImage?: string;
   faviconUrl?: string;
   logoUrl?: string;
+  footerDescription?: string;
+  footerCopyright?: string;
+  footerFanpageUrl?: string;
   socialButtons?: SocialButton[];
+  homeConfig?: any;
 }
 
 const SETTING_DEFAULT: SystemSetting = {
@@ -259,24 +275,32 @@ export async function getSystemSetting(): Promise<SystemSetting> {
   const findLink = (type: string) => buttons.find((b: { type: string }) => b.type === type)?.resolvedLink;
 
   return {
-    hotline:      data.hotline      || SETTING_DEFAULT.hotline,
-    email:        data.email        || SETTING_DEFAULT.email,
-    companyName:  data.companyName  || SETTING_DEFAULT.companyName,
-    taxCode:      data.taxCode      || undefined,
-    slogan:       data.slogan       || SETTING_DEFAULT.slogan,
-    addressNorth: data.addressNorth || SETTING_DEFAULT.addressNorth,
-    addressSouth: data.addressSouth || SETTING_DEFAULT.addressSouth,
+    hotline: data.hotline || SETTING_DEFAULT.hotline,
+    email: data.email || SETTING_DEFAULT.email,
+    companyName: data.companyName || SETTING_DEFAULT.companyName,
+    taxCode: data.taxCode || undefined,
+    slogan: data.slogan || SETTING_DEFAULT.slogan,
+    
+    // Dùng ?? để nếu admin lưu chuỗi rỗng thì nó không bị fallback về default
+    addressNorth: data.addressNorth ?? SETTING_DEFAULT.addressNorth,
+    addressSouth: data.addressSouth ?? SETTING_DEFAULT.addressSouth,
+    
+    footerDescription: data.footerDescription || 'GAMMA HOME là đơn vị thiết kế và thi công nhà trọn gói được nhiều khách tin tưởng lựa chọn, với hàng trăm công trình chất lượng đã được hoàn thiện, góp phần mang đến không gian sống chỉn chu và ấm áp cho các gia đình Việt.',
+    footerCopyright: data.footerCopyright || '© 2021 Bản quyền thuộc về Gamma Home.',
+    footerFanpageUrl: data.footerFanpageUrl || undefined,
+
     // Social — ưu tiên lấy từ social buttons, fallback về default
-    zaloUrl:      findLink('zalo')      || SETTING_DEFAULT.zaloUrl,
+    zaloUrl: findLink('zalo') || SETTING_DEFAULT.zaloUrl,
     messengerUrl: findLink('messenger') || SETTING_DEFAULT.messengerUrl,
-    facebookUrl:  findLink('facebook')  || SETTING_DEFAULT.facebookUrl,
-    facebookPage: findLink('facebook')  || SETTING_DEFAULT.facebookPage,
-    tiktokUrl:    findLink('tiktok')    || SETTING_DEFAULT.tiktokUrl,
-    youtubeUrl:   findLink('youtube')   || SETTING_DEFAULT.youtubeUrl,
+    facebookUrl: findLink('facebook') || SETTING_DEFAULT.facebookUrl,
+    facebookPage: findLink('facebook') || SETTING_DEFAULT.facebookPage,
+    tiktokUrl: findLink('tiktok') || SETTING_DEFAULT.tiktokUrl,
+    youtubeUrl: findLink('youtube') || SETTING_DEFAULT.youtubeUrl,
     feedbackImage: data.feedbackImageUrl || undefined,
-    faviconUrl:    data.faviconUrl       || undefined,
-    logoUrl:       data.logoUrl          || undefined,
+    faviconUrl: data.faviconUrl || undefined,
+    logoUrl: data.logoUrl || undefined,
     socialButtons: data.resolvedSocialButtons?.length ? data.resolvedSocialButtons : undefined,
+    homeConfig: data.homeConfig || undefined,
   };
 }
 
@@ -304,12 +328,12 @@ export async function getHeroSlides(): Promise<HeroSlide[]> {
   const data = await apiFetch<any[] | null>('/hero-slides?active=true', null);
   if (!data?.length) return HERO_DEFAULT;
   return data.map(slide => ({
-    image:    slide.imageUrl  || '/kita/kita-baner1.webp',
-    title:    slide.title     || '',
-    subtitle: slide.subtitle  || '',
+    image: slide.imageUrl || '/kita/kita-baner1.webp',
+    title: slide.title || '',
+    subtitle: slide.subtitle || '',
     highlight: slide.highlight || '',
-    ctaText:  slide.ctaText   || 'Xem thêm',
-    ctaLink:  slide.ctaLink   || '#',
+    ctaText: slide.ctaText || 'Xem thêm',
+    ctaLink: slide.ctaLink || '#',
   }));
 }
 
