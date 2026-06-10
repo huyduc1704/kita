@@ -79,7 +79,7 @@ export default function AboutPage() {
 
             <div className="flex flex-col gap-4 text-zinc-650 text-xs md:text-sm font-light leading-relaxed text-justify">
               {mainPost ? (
-                <div dangerouslySetInnerHTML={{ __html: mainPost.content }} />
+                <div dangerouslySetInnerHTML={{ __html: mainPost.content || '' }} />
               ) : (
                 <>
                   <p>
