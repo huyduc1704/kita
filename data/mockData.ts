@@ -36,6 +36,7 @@ export interface NewsItem {
   date: string;
   excerpt: string;
   content?: string;
+  views?: number;
 }
 
 // 1. MOCK DATA DỰ ÁN (PROJECTS)
